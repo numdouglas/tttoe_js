@@ -2,6 +2,22 @@ body{
 	display:grid;
 }
 
+#results_text {
+	left:0;
+	display:block;
+	visibility: hidden;
+}
+	#results_text.appear {
+		left: 400px;
+		justify-self: center;
+		visibility: visible;
+		transition-property: all;
+		transition-timing-function: ease-in;
+		transition-duration: 10s;
+	}
+
+
+
 .board{
 	display:grid;
 	justify-self:center;
