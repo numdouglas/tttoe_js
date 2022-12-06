@@ -3,13 +3,16 @@ var is_player_one_turn=true;
 var selected_color=null;
 var board_state=[["-","-","-"],["-","-","-"],["-","-","-"]];
 var int_form_board_coords=[0,1,2,10,11,12,20,21,22];
-var turn_result='-';
 var move;
+var game_over=false;
 
 
 function onBoardClick(pos_x, pos_y){
+	if(game_over||(board_state[pos_x][pos_y]!="-"))return;
+	
 	if(div===null)div=document.getElementById("board").children;
 	
+		
 		board_state[pos_x][pos_y]="x";
 	
 		//selected_color="magenta";
@@ -19,12 +22,12 @@ function onBoardClick(pos_x, pos_y){
 		board_state[move.x][move.y]="o";
 	
 	
-	div[coords_to_boardpos(pos_x,pos_y)].style.backgroundColor="magenta";
-	div[coords_to_boardpos(move.x,move.y)].style.backgroundColor="silver";
+	div[coords_to_boardpos(pos_x,pos_y)].style.backgroundColor="gold";
+	div[coords_to_boardpos(move.x,move.y)].style.backgroundColor="rgb(99, 99, 86)";
 	
-	if(checkFullCross('x'))console.log("Player one wins!");
-	else if(checkFullCross('o'))console.log("Player two wins!");
-	else if(isTie())console.log("Tie!");
+	if(checkFullCross("x")){console.log("Player one wins!");game_over=true;}
+	else if(checkFullCross("o")){console.log("Player two wins!");game_over=true;}
+	else if(isTie()){console.log("Tie!");game_over=true;}
 }
 
 function checkFullCross(player){
@@ -51,14 +54,14 @@ function checkFullCross(player){
 }
 
 function minimax(){
-	var score=Number.MIN_VALUE;
+	var score=Number.MAX_VALUE;
 	var move={x:0,y:0};
 	
 	for (let i=0;i<3;i++){
 		
 		for(let j=0;j<3;j++){
-			if(board_state[i][j]==='-'){ 
-			board_state[i][j]='o';
+			if(board_state[i][j]==="-"){ 
+			board_state[i][j]="o";
 			var temp=max();
 			//console.log(temp);
 			if(temp<score){
@@ -66,7 +69,7 @@ function minimax(){
 				move.x=i;
 				move.y=j;
 			}
-			board_state[i][j]='-';
+			board_state[i][j]="-";
 			}
 		}
 	}
@@ -74,8 +77,8 @@ function minimax(){
 }
 
 function max(){
-	if(checkFullCross('x'))return 10;
-	else if(checkFullCross('o'))return -10;
+	if(checkFullCross("x"))return 10;
+	else if(checkFullCross("o"))return -10;
 	else if(isTie())return 0;
 	
 	
@@ -83,10 +86,10 @@ function max(){
 	
 	for(let i=0;i<3;i++){
 		for(let j=0;j<3;j++){
-			if(board_state[i][j]==='-'){
-				board_state[i][j]='x';
+			if(board_state[i][j]==="-"){
+				board_state[i][j]="x";
 				score= Math.max(score,min());
-				board_state[i][j]='-';
+				board_state[i][j]="-";
 			}
 		}
 	}
@@ -94,9 +97,8 @@ function max(){
 }
 
 function min(){
-	printBoard();
-	if(checkFullCross('x'))return 10;
-	else if(checkFullCross('o'))return -10;
+	if(checkFullCross("x"))return 10;
+	else if(checkFullCross("o"))return -10;
 	else if(isTie())return 0;
 	
 	
@@ -104,10 +106,12 @@ function min(){
 
 	for(let i=0;i<3;i++){
 		for(let j=0;j<3;j++){
-			if(board_state[i][j]==='-'){
-				board_state[i][j]='x';
-				score= Math.min(score,max());
-				board_state[i][j]='-';
+			if(board_state[i][j]==="-"){
+				board_state[i][j]="o";
+				var max_result=max();
+				score= Math.min(score,max_result);
+				//console.log(max_result,score);
+				board_state[i][j]="-";
 			}
 		}
 	}	
@@ -118,24 +122,27 @@ function isTie()
     {
         for (let i = 0; i < 3; i++)
         {
-            if (board_state[i][0] == '-' || board_state[i][1] == '-' || board_state[i][2] == '-')
+            if (board_state[i][0] == "-" || board_state[i][1] == "-" || board_state[i][2] == "-")
                 return false;
         }
         return true;
     }
-function printBoard()
-    {
+function printBoard(){
+		var row_str="";
         console.log( "+-----------------+");
         for (let i = 0; i < 3; i++)
         {
-            console.log( "\n|");
+            row_str+="\n|";
             for (let j = 0; j < 3; j++)
             {
-                console.log(board_state[i][j] +" |");
+                //console.log(board_state[i][j]);
+				row_str+=board_state[i][j] +" |";
             }
+			console.log(row_str);
+			row_str="";
         }
         console.log("\n+-----------------+\n");
-    }
+}
 
 
 function coords_to_boardpos(coordx , coordy){
@@ -146,4 +153,9 @@ function coords_to_boardpos(coordx , coordy){
 	return -1;
 }
 
-//console.log(printBoard());
+/*board_state[0][0]="x";
+console.log(printBoard());
+move=minimax();
+board_state[move.x][move.y]="o";
+
+console.log(move.x,move.y,max(),min());*/
