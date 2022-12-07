@@ -1,11 +1,38 @@
+//server dependencies
+const express=require("express");
+const app=express();
+const http=require("http");
+const server=http.createServer(app);
+const {Server}=require("socket.io");
+const io=new Server(server);
+
 var div = null;
-var selected_color = null;
-var board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
-var int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
+const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
+const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 var move;
 var game_over = false;
-var ai_difficulty_prob = .1;
-var dist_arr = [];
+var ai_difficulty_prob = .8;
+const dist_arr = [];
+
+
+app.get("/",(req,res)=>{
+	res.sendFile(__dirname+"/index.html");
+});
+
+io.on("connection",(socket)=>{
+	console.log("a user connected");
+	socket.on("disconnect",()=>{
+		console.log("a user disconnected")
+	});
+	socket.on("text_click",(msg)=>{
+		console.log(msg);
+		io.emit("text_click_resp","ken");
+	})
+});
+
+server.listen(3000,()=>{
+	console.log("listening on 3000");
+});
 
 
 function onBoardClick(pos_x, pos_y, is_human) {
@@ -13,8 +40,7 @@ function onBoardClick(pos_x, pos_y, is_human) {
 
     if (div === null) {
         div = document.getElementById("board").children;
-        dist_arr = create_distribution(ai_difficulty_prob);
-        shuffleArray(dist_arr);
+        create_distribution(ai_difficulty_prob,dist_arr);
     }
 
     if (is_human) {
@@ -22,7 +48,8 @@ function onBoardClick(pos_x, pos_y, is_human) {
         div[coords_to_boardpos(pos_x, pos_y)].style.backgroundColor = "gold";
     }
     else {
-        var rand_or_max = dist_arr[Math.floor(Math.random() * 100)];
+        shuffleArray(dist_arr);
+        var rand_or_max = dist_arr[0];
         move = rand_or_max === 0 ? minimax() : make_random_move();
         console.log(move);
         board_state[move.x][move.y] = "o";
@@ -191,14 +218,12 @@ function shuffleArray(array) {
     }
 }
 
-function create_distribution(prob) {
-    var arr = [];
+function create_distribution(prob, arr) {
     for (let i = 0; i < 100; i++) {
         if (i <= 100 * prob)
             arr.push(0);
         else arr.push(1);
     }
-    return arr;
 }
 /*board_state[0][0]="x";
 console.log(printBoard());
