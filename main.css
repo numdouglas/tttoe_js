@@ -3,18 +3,31 @@ body{
 }
 
 #results_text {
-	left:0;
+	left:35%;
+	position:relative;
 	display:block;
-	visibility: hidden;
+	color:rgba(0,0,0,.0);
+	/*animation:game_over_text 2s ease-in;*/
 }
-	#results_text.appear {
-		left: 400px;
-		justify-self: center;
-		visibility: visible;
-		transition-property: all;
-		transition-timing-function: ease-in;
-		transition-duration: 10s;
+
+
+@keyframes game_over_text {
+	80% {
+		color:rgba(0,0,0,.0);
 	}
+	100% {
+		color:rgba(0,0,0,1);
+		left:50%;
+	}
+}
+
+@keyframes game_over_text_two {
+	100% {
+		visibility:hidden;
+		left:100%;
+	}
+}
+
 
 
 

@@ -1,10 +1,10 @@
 //server dependencies
-const express=require("express");
+/*const express=require("express");
 const app=express();
 const http=require("http");
 const server=http.createServer(app);
 const {Server}=require("socket.io");
-const io=new Server(server);
+const io=new Server(server);*/
 
 var div = null;
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
@@ -15,7 +15,7 @@ var ai_difficulty_prob = .8;
 const dist_arr = [];
 
 
-app.get("/",(req,res)=>{
+/*app.get("/",(req,res)=>{
 	res.sendFile(__dirname+"/index.html");
 });
 
@@ -32,7 +32,7 @@ io.on("connection",(socket)=>{
 
 server.listen(3000,()=>{
 	console.log("listening on 3000");
-});
+});*/
 
 
 function onBoardClick(pos_x, pos_y, is_human) {
@@ -56,23 +56,28 @@ function onBoardClick(pos_x, pos_y, is_human) {
         div[coords_to_boardpos(move.x, move.y)].style.backgroundColor = "rgb(110, 42, 11)";
     }
 
+	const animation_css_text="game_over_text .3s linear forwards,game_over_text_two .5s linear 3s forwards";
+	
     if (checkFullCross("x")) {
-        console.log("Player one wins!");
-        document.getElementById("results_text").classList.add("appear");
+		console.log("Player one wins!");
+		var results_text = document.getElementById("results_text");
+        results_text.textContent = "You Win!";
+		results_text.style.animation=animation_css_text;
+		//results_text.style.animation="game_over_text_two 2s linear 4s forwards";
         game_over = true;
     }
     else if (checkFullCross("o")) {
         console.log("Player two wins!");
-        var results_text = document.getElementById("results_text");
+        const results_text = document.getElementById("results_text");
         results_text.textContent = "You Lose!";
-        results_text.classList.add("appear");
+		results_text.style.animation=animation_css_text;
         game_over = true;
     }
     else if (isTie()) {
         console.log("Tie!");
-        var results_text = document.getElementById("results_text");
+        const results_text = document.getElementById("results_text");
         results_text.textContent = "Tie!";
-        results_text.classList.add("appear");
+        results_text.style.animation=animation_css_text;
         game_over = true;
     }
 
