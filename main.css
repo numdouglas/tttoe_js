@@ -3,9 +3,6 @@ body{
 }
 
 #results_text {
-	left:35%;
-	position:relative;
-	display:block;
 	color:rgba(0,0,0,.0);
 	/*animation:game_over_text 2s ease-in;*/
 }
@@ -17,14 +14,14 @@ body{
 	}
 	100% {
 		color:rgba(0,0,0,1);
-		left:50%;
+		transform:translate(50%);
 	}
 }
 
 @keyframes game_over_text_two {
 	100% {
-		visibility:hidden;
-		left:100%;
+		color:rgba(0,0,0,.0);
+		transform:translate(100%);
 	}
 }
 

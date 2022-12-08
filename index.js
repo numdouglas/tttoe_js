@@ -56,7 +56,7 @@ function onBoardClick(pos_x, pos_y, is_human) {
         div[coords_to_boardpos(move.x, move.y)].style.backgroundColor = "rgb(110, 42, 11)";
     }
 
-	const animation_css_text="game_over_text .3s linear forwards,game_over_text_two .5s linear 3s forwards";
+	const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
 	
     if (checkFullCross("x")) {
 		console.log("Player one wins!");
