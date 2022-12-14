@@ -39,8 +39,7 @@ function onBoardClick(pos_x, pos_y, is_human) {
     if (is_human) {
         board_state[pos_x][pos_y] = "x";
 		console.log("sending feedback");
-		io.emit("player_1_ui_feedback",`${pos_x},${pos_y},gold`)
-        //div[coords_to_boardpos(pos_x, pos_y)].style.backgroundColor = "gold";
+		io.emit("player_1_ui_feedback",`${pos_x},${pos_y},gold`);
     }
     else {
         shuffleArray(dist_arr);
@@ -48,8 +47,7 @@ function onBoardClick(pos_x, pos_y, is_human) {
         move = rand_or_max === 0 ? minimax() : make_random_move();
         console.log(move);
         board_state[move.x][move.y] = "o";
-		io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`)
-        //div[coords_to_boardpos(move.x, move.y)].style.backgroundColor = "rgb(110, 42, 11)";
+		io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`);
     }
 
 	const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
