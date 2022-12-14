@@ -20,7 +20,6 @@ http.listen(8080,()=>console.log("listening on port 8080"));
 
 
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
-const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 var move;
 var game_over = false;
 var ai_difficulty_prob = .8;
@@ -181,14 +180,6 @@ function printBoard() {
     console.log("\n+-----------------+\n");
 }
 
-
-function coords_to_boardpos(coordx, coordy) {
-    for (let i = 0; i < int_form_board_coords.length; i++) {
-        if ((10 * coordx + coordy) === int_form_board_coords[i])
-            return i;
-    }
-    return -1;
-}
 
 function make_random_move() {
     var move = { x: 0, y: 0 };
