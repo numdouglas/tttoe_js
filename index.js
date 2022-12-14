@@ -1,12 +1,24 @@
 //server dependencies
-/*const express=require("express");
-const app=express();
-const http=require("http");
-const server=http.createServer(app);
-const {Server}=require("socket.io");
-const io=new Server(server);*/
+const http= require("http").createServer();
+const io= require("socket.io")(http, {
+	cors: {origin:"*"}
+});
 
-var div = null;
+io.on("connection", (socket)=>{
+	console.log("user connected");
+	socket.on("player_1_click",(message)=>{
+		console.log("new p1 click");
+		
+		var args_arr=message.split(",");
+		onBoardClick(args_arr[0],args_arr[1],true);
+		//io.emit("player_1_feedback","clicku registered");
+	})
+
+});
+
+http.listen(8080,()=>console.log("listening on port 8080"));
+
+
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
 const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 var move;
@@ -14,38 +26,21 @@ var game_over = false;
 var ai_difficulty_prob = .8;
 const dist_arr = [];
 
+initialize();
 
-/*app.get("/",(req,res)=>{
-	res.sendFile(__dirname+"/index.html");
-});
-
-io.on("connection",(socket)=>{
-	console.log("a user connected");
-	socket.on("disconnect",()=>{
-		console.log("a user disconnected")
-	});
-	socket.on("text_click",(msg)=>{
-		console.log(msg);
-		io.emit("text_click_resp","ken");
-	})
-});
-
-server.listen(3000,()=>{
-	console.log("listening on 3000");
-});*/
-
+function initialize(){
+	create_distribution(ai_difficulty_prob,dist_arr);
+}
 
 function onBoardClick(pos_x, pos_y, is_human) {
     if (game_over || (is_human&&board_state[pos_x][pos_y] != "-")) return;
 
-    if (div === null) {
-        div = document.getElementById("board").children;
-        create_distribution(ai_difficulty_prob,dist_arr);
-    }
 
     if (is_human) {
         board_state[pos_x][pos_y] = "x";
-        div[coords_to_boardpos(pos_x, pos_y)].style.backgroundColor = "gold";
+		console.log("sending feedback");
+		io.emit("player_1_ui_feedback",`${pos_x},${pos_y},gold`)
+        //div[coords_to_boardpos(pos_x, pos_y)].style.backgroundColor = "gold";
     }
     else {
         shuffleArray(dist_arr);
@@ -53,32 +48,26 @@ function onBoardClick(pos_x, pos_y, is_human) {
         move = rand_or_max === 0 ? minimax() : make_random_move();
         console.log(move);
         board_state[move.x][move.y] = "o";
-        div[coords_to_boardpos(move.x, move.y)].style.backgroundColor = "rgb(110, 42, 11)";
+		io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`)
+        //div[coords_to_boardpos(move.x, move.y)].style.backgroundColor = "rgb(110, 42, 11)";
     }
 
 	const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
 	
     if (checkFullCross("x")) {
 		console.log("Player one wins!");
-		var results_text = document.getElementById("results_text");
-        results_text.textContent = "You Win!";
-		results_text.style.animation=animation_css_text;
-		//results_text.style.animation="game_over_text_two 2s linear 4s forwards";
-        game_over = true;
+		game_over=true;
+		io.emit("finish_game","You Win!");
     }
     else if (checkFullCross("o")) {
         console.log("Player two wins!");
-        const results_text = document.getElementById("results_text");
-        results_text.textContent = "You Lose!";
-		results_text.style.animation=animation_css_text;
-        game_over = true;
+		game_over=true;
+		io.emit("finish_game","You Lose!");
     }
     else if (isTie()) {
         console.log("Tie!");
-        const results_text = document.getElementById("results_text");
-        results_text.textContent = "Tie!";
-        results_text.style.animation=animation_css_text;
-        game_over = true;
+		game_over=true;
+		io.emit("finish_game","Tie!");
     }
 
     if (is_human) { onBoardClick(0, 0, false); }
@@ -230,9 +219,3 @@ function create_distribution(prob, arr) {
         else arr.push(1);
     }
 }
-/*board_state[0][0]="x";
-console.log(printBoard());
-move=minimax();
-board_state[move.x][move.y]="o";
-
-console.log(move.x,move.y,max(),min());*/

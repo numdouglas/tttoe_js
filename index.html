@@ -1,21 +1,22 @@
 <html>
 <head>
 <link href="main.css" rel="stylesheet"></link>
-<script type="text/javascript" src="index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer src="client_ui.js"></script>
 <title>tic tac toe</title>
 </head>
 <body>
 <div id="results_text">You Win!</div>
 <div id="board" class="board">
-	<div onclick="onBoardClick(0,0,true)"></div>
-	<div onclick="onBoardClick(0,1,true)"></div>
-	<div onclick="onBoardClick(0,2,true)"></div>
-	<div onclick="onBoardClick(1,0,true)"></div>
-	<div onclick="onBoardClick(1,1,true)"></div>
-	<div onclick="onBoardClick(1,2,true)"></div>
-	<div onclick="onBoardClick(2,0,true)"></div>
-	<div onclick="onBoardClick(2,1,true)"></div>
-	<div onclick="onBoardClick(2,2,true)"></div>
+	<div onclick="onBoardClick(0,0)"></div>
+	<div onclick="onBoardClick(0,1)"></div>
+	<div onclick="onBoardClick(0,2)"></div>
+	<div onclick="onBoardClick(1,0)"></div>
+	<div onclick="onBoardClick(1,1)"></div>
+	<div onclick="onBoardClick(1,2)"></div>
+	<div onclick="onBoardClick(2,0)"></div>
+	<div onclick="onBoardClick(2,1)"></div>
+	<div onclick="onBoardClick(2,2)"></div>
 </div>
 </body>
 </html>
