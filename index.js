@@ -21,6 +21,7 @@ http.listen(8080,()=>console.log("listening on port 8080"));
 
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
 var move;
+var consts=null;
 var game_over = false;
 var ai_difficulty_prob = .8;
 const dist_arr = [];
@@ -28,6 +29,7 @@ const dist_arr = [];
 initialize();
 
 function initialize(){
+	
 	create_distribution(ai_difficulty_prob,dist_arr);
 }
 
