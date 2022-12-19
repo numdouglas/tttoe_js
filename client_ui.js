@@ -4,9 +4,12 @@ const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 //client dependencies
 const socket=io("ws://localhost:8080");
 
+var last_turn="x";
+
 socket.on(event_consts.UI_FEEDBACK,(message)=>{
 	const args_arr=message.split(",");
 	div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
+	last_turn=last_turn==="o"?"x":"o";
 });
 socket.on(event_consts.GAME_OVER, (message)=>{
 	const results_text = document.getElementById("results_text");
@@ -16,7 +19,7 @@ socket.on(event_consts.GAME_OVER, (message)=>{
 });
 
 function onBoardClick(x_coord, y_coord){
-	socket.emit("player_1_click",`${x_coord},${y_coord}`);
+	socket.emit("player_click",`${x_coord},${y_coord},${last_turn}`);
 }
 
 function coords_to_boardpos(coordx, coordy) {

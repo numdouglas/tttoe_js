@@ -6,12 +6,12 @@ const io= require("socket.io")(http, {
 
 io.on("connection", (socket)=>{
 	console.log("user connected");
-	socket.on("player_1_click",(message)=>{
-		console.log("new p1 click");
+	socket.on("player_click",(message)=>{
 		
 		var args_arr=message.split(",");
-		onBoardClick(args_arr[0],args_arr[1],true);
-		//io.emit("player_1_feedback","clicku registered");
+		onBoardClick(args_arr[0],args_arr[1],args_arr[2]);
+		if(player_mode==="1p")
+		{ai_play();}
 	})
 
 });
@@ -25,6 +25,8 @@ var consts=null;
 var game_over = false;
 var ai_difficulty_prob = .8;
 const dist_arr = [];
+const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
+var player_mode="2p";
 
 initialize();
 
@@ -33,43 +35,41 @@ function initialize(){
 	create_distribution(ai_difficulty_prob,dist_arr);
 }
 
-function onBoardClick(pos_x, pos_y, is_human) {
-    if (game_over || (is_human&&board_state[pos_x][pos_y] != "-")) return;
-
-
-    if (is_human) {
-        board_state[pos_x][pos_y] = "x";
-		console.log("sending feedback");
-		io.emit("player_1_ui_feedback",`${pos_x},${pos_y},gold`);
-    }
-    else {
-        shuffleArray(dist_arr);
-        var rand_or_max = dist_arr[0];
-        move = rand_or_max === 0 ? minimax() : make_random_move();
-        console.log(move);
-        board_state[move.x][move.y] = "o";
-		io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`);
-    }
-
-	const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
+function onBoardClick(pos_x, pos_y, symbol) {
+    if (game_over || board_state[pos_x][pos_y] != "-") return;
 	
+    board_state[pos_x][pos_y] = symbol;
+	console.log("sending feedback");
+	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol==="x"?"gold":"brown"}`);
+	checkGameOver();
+}
+
+function ai_play(){
+	shuffleArray(dist_arr);
+    var rand_or_max = dist_arr[0];
+    move = rand_or_max === 0 ? minimax() : make_random_move();
+    console.log(move);
+    board_state[move.x][move.y] = "o";
+	io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`);
+	checkGameOver();
+}
+
+function checkGameOver(){	
     if (checkFullCross("x")) {
 		console.log("Player one wins!");
 		game_over=true;
-		io.emit("finish_game","You Win!");
+		io.emit("finish_game",player_mode==="1p"?"You Win!":"Player 1 Wins!");
     }
     else if (checkFullCross("o")) {
         console.log("Player two wins!");
 		game_over=true;
-		io.emit("finish_game","You Lose!");
+		io.emit("finish_game",player_mode==="1p"?"You Lose!":"Player 2 Wins!");
     }
     else if (isTie()) {
         console.log("Tie!");
 		game_over=true;
 		io.emit("finish_game","Tie!");
     }
-
-    if (is_human) { onBoardClick(0, 0, false); }
 }
 
 function checkFullCross(player) {
