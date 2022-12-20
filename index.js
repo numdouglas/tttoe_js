@@ -6,13 +6,33 @@ const io= require("socket.io")(http, {
 
 io.on("connection", (socket)=>{
 	console.log("user connected");
+	console.log(player_mode);
+	
+	socket.on("player_mode",(msg)=>{
+		console.log(`initializing ${msg===-1}`);
+		if(player_mode===undefined){
+			if(msg===-1)player_mode="2p"
+			else player_mode="1p"
+		}
+		
+		//assign p1 and p2
+		if(player_mode!==undefined){
+			//use socket for individual role assignment rather than broadcast
+			socket.emit("role_assignment",player_number);
+			//prepare for next assignment
+			if(player_mode==="2p"&&player_number===1)player_number=2;
+			else player_number=1;
+		}
+	});
+	
+	
 	socket.on("player_click",(message)=>{
 		
 		var args_arr=message.split(",");
 		onBoardClick(args_arr[0],args_arr[1],args_arr[2]);
 		if(player_mode==="1p")
 		{ai_play();}
-	})
+	});
 
 });
 
@@ -26,7 +46,9 @@ var game_over = false;
 var ai_difficulty_prob = .8;
 const dist_arr = [];
 const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
-var player_mode="2p";
+var player_mode=undefined;
+var player_number=1;
+var last_player="";
 
 initialize();
 
@@ -36,8 +58,10 @@ function initialize(){
 }
 
 function onBoardClick(pos_x, pos_y, symbol) {
-    if (game_over || board_state[pos_x][pos_y] != "-") return;
+	console.log(`symbol ${symbol} clicked`);
+    if (game_over || board_state[pos_x][pos_y] != "-"|| last_player===symbol) return;
 	
+	last_player=symbol;
     board_state[pos_x][pos_y] = symbol;
 	console.log("sending feedback");
 	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol==="x"?"gold":"brown"}`);
@@ -50,6 +74,7 @@ function ai_play(){
     move = rand_or_max === 0 ? minimax() : make_random_move();
     console.log(move);
     board_state[move.x][move.y] = "o";
+	last_player="o";
 	io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`);
 	checkGameOver();
 }

@@ -1,0 +1,44 @@
+body{
+	display:grid;
+}
+
+#container{
+	display:grid;
+	justify-self:center;
+	align-self:center;
+}
+
+#container>ul{
+	list-style-type:circle;
+}
+
+#title_text{
+	font-size:30px;
+	animation: levitate 6s ease-in-out infinite;
+}
+
+#mode_selection_text{
+	margin-top:30px;
+}
+
+#container li{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+#container a{
+	text-decoration:none;
+	color:orange;
+}
+
+@keyframes levitate {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
