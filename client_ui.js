@@ -7,7 +7,7 @@ const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 var m_role="";
 
-socket.on("connect",()=>{
+socket.on(event_consts.CONNECT,()=>{
 	console.log("connect");
 	socket.emit("player_mode",window.location.search.search("1p"));
 });
@@ -25,8 +25,9 @@ socket.on(event_consts.UI_FEEDBACK,(message)=>{
 });
 socket.on(event_consts.GAME_OVER, (message)=>{
 	const results_text = document.getElementById("results_text");
-    results_text.textContent = message==="Tie!"?message:message==="Player 1 Wins!"&&m_role==="x"?"You Win!":"You Lose!";
+    results_text.textContent = (message==="Tie!"||message==="You Win!"||message==="You Lose!")?message:message==="Player 1 Wins!"&&m_role==="x"?"You Win!":"You Lose!";
 	results_text.style.animation=animation_css_text;
+	wait(4000).then(()=>{window.location.replace("./index.html");});
     //game_over = true;
 });
 
@@ -40,4 +41,10 @@ function coords_to_boardpos(coordx, coordy) {
             return i;
     }
     return -1;
+}
+
+function wait(milliseconds){
+  return new Promise(resolve => {
+      setTimeout(resolve, milliseconds);
+  });
 }

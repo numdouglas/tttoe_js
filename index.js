@@ -1,12 +1,19 @@
 //server dependencies
-const http= require("http").createServer();
+var static=require("node-static");
+var fileServer = new static.Server("./");
+
+const http= require("http").createServer(function (request, response) {
+    request.addListener("end", function () {
+        fileServer.serve(request, response);
+    }).resume();
+});
+
 const io= require("socket.io")(http, {
 	cors: {origin:"*"}
 });
 
 io.on("connection", (socket)=>{
 	console.log("user connected");
-	console.log(player_mode);
 	
 	socket.on("player_mode",(msg)=>{
 		console.log(`initializing ${msg===-1}`);
@@ -30,8 +37,6 @@ io.on("connection", (socket)=>{
 		
 		var args_arr=message.split(",");
 		onBoardClick(args_arr[0],args_arr[1],args_arr[2]);
-		if(player_mode==="1p")
-		{ai_play();}
 	});
 
 });
@@ -59,19 +64,21 @@ function initialize(){
 
 function onBoardClick(pos_x, pos_y, symbol) {
 	console.log(`symbol ${symbol} clicked`);
-    if (game_over || board_state[pos_x][pos_y] != "-"|| last_player===symbol) return;
+    if (game_over || board_state[pos_x][pos_y] !== "-"|| last_player===symbol) return;
 	
 	last_player=symbol;
     board_state[pos_x][pos_y] = symbol;
 	console.log("sending feedback");
 	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol==="x"?"gold":"brown"}`);
 	checkGameOver();
+	
+	if(player_mode==="1p")ai_play();
 }
 
 function ai_play(){
 	shuffleArray(dist_arr);
-    var rand_or_max = dist_arr[0];
-    move = rand_or_max === 0 ? minimax() : make_random_move();
+    var rand_or_maxxed = dist_arr[0];
+    move = rand_or_maxxed === 0 ? minimax() : make_random_move();
     console.log(move);
     board_state[move.x][move.y] = "o";
 	last_player="o";
@@ -84,16 +91,19 @@ function checkGameOver(){
 		console.log("Player one wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Win!":"Player 1 Wins!");
+		finish_game();
     }
     else if (checkFullCross("o")) {
         console.log("Player two wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Lose!":"Player 2 Wins!");
+		finish_game();
     }
     else if (isTie()) {
         console.log("Tie!");
 		game_over=true;
 		io.emit("finish_game","Tie!");
+		finish_game();
     }
 }
 
@@ -217,6 +227,22 @@ function make_random_move() {
     if (board_state[move.x][move.y] != "-") return make_random_move();
 
     return move;
+}
+
+
+function finish_game(){
+	game_over = false;
+	player_mode=undefined;
+	player_number=1;
+	last_player="";
+
+	clear_board();
+}
+
+function clear_board(){
+	for(var i=0;i<board_state.length;i++){
+		board_state[i].fill("-");
+	}
 }
 
 
