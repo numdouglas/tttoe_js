@@ -26,12 +26,12 @@ var fileServer = new n_static.Server("./");*/
 });*/
 
 const io= require("socket.io")(server, {
-	cors: {
+	/*cors: {
 	"origin":"*",
 	"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
 	"allowedHeaders":"Content-Type,Authorization"
-	}
+	}*/
 });
 
 io.on("connection", (socket)=>{
