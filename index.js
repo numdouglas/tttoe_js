@@ -24,10 +24,11 @@ var fileServer = new n_static.Server("./");*/
         fileServer.serve(request, response);
     }).resume();
 });*/
+const SERVER_DOMAIN=process.env.DOMAIN||"localhost";
 
 const io= require("socket.io")(server, {
-	/*cors: {
-	"origin":"*",
+	cors: {
+	"origin":`http://${SERVER_DOMAIN}`,
 	"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
 	"allowedHeaders":"Content-Type,Authorization"
