@@ -1,5 +1,6 @@
+const DOMAIN=process.env.DOMAIN||"localhost";
 //client dependencies
-const socket=io("http://146.190.34.149:8080");
+const socket=io(`http://${DOMAIN}:8080`);
 
 var div=document.getElementById("board").children;
 const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
