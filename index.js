@@ -28,11 +28,11 @@ const SERVER_DOMAIN=process.env.DOMAIN||"localhost";
 
 const io= require("socket.io")(server, {
 	cors: {
-	"origin":`http://${SERVER_DOMAIN}`,
-	"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+	"origin":`http://${SERVER_DOMAIN}`
+	/*"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
-	"allowedHeaders":"Content-Type,Authorization"
-	}*/
+	"allowedHeaders":"Content-Type,Authorization"*/
+	}
 });
 
 io.on("connection", (socket)=>{
