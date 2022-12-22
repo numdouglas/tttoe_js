@@ -7,12 +7,12 @@ const cors=require("cors");
 const app = express();
 
 const server=http.createServer(app);
-app.use(cors({
+/*app.use(cors({
 	"origin":"*",
 	"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
 	"allowedHeaders":"Content-Type,Authorization"
-	}));
+	}));*/
 app.use(express.static("./"));
 
 // .listen(8080, () => console.log(`Listening on 8080`));
