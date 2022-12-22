@@ -1,4 +1,4 @@
-const DOMAIN=process.env.DOMAIN||"localhost";
+const DOMAIN=window.location.hostname;
 //client dependencies
 const socket=io(`http://${DOMAIN}:8080`);
 
