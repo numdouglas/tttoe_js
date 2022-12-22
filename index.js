@@ -1,14 +1,26 @@
+"use strict"
 //server dependencies
-var static=require("node-static");
-var fileServer = new static.Server("./");
+const express=require("express");
+const http=require("http");
+const cors=require("cors");
 
-const http= require("http").createServer(function (request, response) {
-    request.addListener("end", function () {
+const app = express();
+
+const server=http.createServer(app);
+app.use(cors({origin:"*"}));
+app.use(express.static("./"));
+
+// .listen(8080, () => console.log(`Listening on 8080`));
+/*var n_static=require("node-static");
+var fileServer = new n_static.Server("./");*/
+
+/*const http= require("http").createServer(function (request, response) {
+	request.addListener("end", function () {
         fileServer.serve(request, response);
     }).resume();
-});
+});*/
 
-const io= require("socket.io")(http, {
+const io= require("socket.io")(server, {
 	cors: {origin:"*"}
 });
 
@@ -41,7 +53,7 @@ io.on("connection", (socket)=>{
 
 });
 
-http.listen(8080,()=>console.log("listening on port 8080"));
+server.listen(8080,()=>console.log("listening on port 8080"));
 
 
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
