@@ -261,7 +261,7 @@ function finish_game(){
 	player_number=1;
 	last_player="";
 
-	//clear_board();
+	clear_board();
 }
 
 function clear_board(){
