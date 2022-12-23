@@ -1,19 +1,19 @@
 html{
 	display:grid;
 	grid-template-rows:5fr 60fr 35fr;
+	height:100vh;
 }
 body{
 	display:grid;
-	grid-row:2/3;
-	grid-template-rows:1fr 1fr;
-	height:100vh;
+	grid-row:2/4;
+	grid-template-rows:20fr 80fr;
 }
 
 #container{
 	display:flex;
 	align-items:center;
 	flex-direction:column;
-	grid-row:1/2;
+	grid-row:2/3;
 }
 
 #title_text{
