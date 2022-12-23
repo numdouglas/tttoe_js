@@ -1,6 +1,6 @@
 html{
 	display:grid;
-	grid-template-rows:25fr 50fr 25fr;
+	grid-template-rows:15fr 50fr 35fr;
 }
 body{
 	display:grid;
@@ -16,7 +16,7 @@ body{
 }
 
 #title_text{
-	font-size:4vw;
+	font-size:10vw;
 	animation: levitate 6s ease-in-out infinite;
 }
 
@@ -26,6 +26,7 @@ body{
 
 #mode_selection_text{
 	margin-top:2vh;
+	font-size:5vw;
 }
 
 #container li{
@@ -35,6 +36,7 @@ body{
 
 #container a{
 	text-decoration:none;
+	font-size:4vw;
 	color:orange;
 }
 
