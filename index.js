@@ -83,6 +83,7 @@ initialize();
 
 function initialize(){
 	
+	clear_board();
 	create_distribution(ai_difficulty_prob,dist_arr);
 }
 
