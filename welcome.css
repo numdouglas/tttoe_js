@@ -1,29 +1,36 @@
+html{
+	display:grid;
+	grid-template-rows:25fr 50fr 25fr;
+}
 body{
 	display:grid;
+	grid-row:2/3;
+	grid-template-rows:1fr 1fr;
 }
 
 #container{
-	display:grid;
-	justify-self:center;
-	align-self:center;
+	display:flex;
+	align-items:center;
+	flex-direction:column;
+	grid-row:1/2;
+}
+
+#title_text{
+	font-size:4vw;
+	animation: levitate 6s ease-in-out infinite;
 }
 
 #container>ul{
 	list-style-type:circle;
 }
 
-#title_text{
-	font-size:30px;
-	animation: levitate 6s ease-in-out infinite;
-}
-
 #mode_selection_text{
-	margin-top:30px;
+	margin-top:2vh;
 }
 
 #container li{
-	margin-top:20px;
-	margin-bottom:20px;
+	margin-top:2vh;
+	margin-bottom:2vh;
 }
 
 #container a{
