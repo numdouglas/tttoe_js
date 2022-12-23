@@ -1,8 +1,16 @@
+html{
+	display:grid;
+	grid-template-rows:1fr;
+}
 body{
 	display:grid;
+	grid-row:1/1;
+	grid-template-rows:10fr 90fr;
 }
 
 #results_text {
+	grid-row:1/2;
+	font-size:5vh;
 	color:rgba(0,0,0,.0);
 	/*animation:game_over_text 2s ease-in;*/
 }
@@ -34,12 +42,14 @@ body{
 	align-self:center;
 	grid-template-columns:1fr 1fr 1fr;
 	gap:1em;
-	width:40vw;
-	height:40vw;
+	width:calc(72vw+1em);
+	height:calc(72vw+1em);
 	background-color:aqua;
 }
 
 .board > div{
 	background-color:gainsboro;
-	padding:3em;
+	width:24vw;
+	height:24vw;
+	/*padding:3em;*/
 }
