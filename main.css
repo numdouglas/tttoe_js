@@ -42,14 +42,14 @@ body{
 	align-self:center;
 	grid-template-columns:1fr 1fr 1fr;
 	gap:1em;
-	width:calc(72vw+1em);
-	height:calc(72vw+1em);
+	width:calc(81vh+1em);
+	height:calc(81vh+1em);
 	background-color:aqua;
 }
 
 .board > div{
 	background-color:gainsboro;
-	width:24vw;
-	height:24vw;
+	width:27vh;
+	height:27vh;
 	/*padding:3em;*/
 }

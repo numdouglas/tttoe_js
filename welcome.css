@@ -1,11 +1,12 @@
 html{
 	display:grid;
-	grid-template-rows:15fr 50fr 35fr;
+	grid-template-rows:5fr 60fr 35fr;
 }
 body{
 	display:grid;
 	grid-row:2/3;
 	grid-template-rows:1fr 1fr;
+	height:100vh;
 }
 
 #container{
@@ -31,7 +32,7 @@ body{
 
 #container li{
 	margin-top:2vh;
-	margin-bottom:2vh;
+	margin-bottom:2vh;	
 }
 
 #container a{
