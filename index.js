@@ -29,7 +29,7 @@ const SERVER_DOMAIN=process.env.DOMAIN||"localhost";
 
 const io= require("socket.io")(server, {
 	cors: {
-	"origin":[`http://${SERVER_DOMAIN}`,"http://tttoe.uk","http://www.tttoe.uk"]
+	"origin":[`http://${SERVER_DOMAIN}`,"https://tttoe.uk","https://www.tttoe.uk"]
 	/*"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
 	"allowedHeaders":"Content-Type,Authorization"*/

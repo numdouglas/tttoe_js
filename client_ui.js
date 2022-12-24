@@ -1,6 +1,6 @@
 const DOMAIN=window.location.hostname;
 //client dependencies
-const socket=io(`http://${DOMAIN}:8080`);
+const socket=io(`https://${DOMAIN}`);
 
 var div=document.getElementById("board").children;
 const animation_css_text="game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
