@@ -29,6 +29,7 @@ const SERVER_DOMAIN=process.env.DOMAIN||"localhost";
 
 const io= require("socket.io")(server, {
 	cors: {
+	/*wss connection will still arrive here as http connection*/
 	"origin":[`http://${SERVER_DOMAIN}`,"https://tttoe.uk","https://www.tttoe.uk"]
 	/*"methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	"credentials":"true",
