@@ -1,6 +1,6 @@
 const DOMAIN=window.location.hostname;
 //client dependencies
-const socket=io(`${DOMAIN}:8081`);/*the port and http are used for purposes of local testing,
+const socket=io(`${DOMAIN}:80`);/*the port and http are used for purposes of local testing,
 										otherwise prod doesn't need them as traffic is proxied*/
 
 var div=document.getElementById("board").children;
