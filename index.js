@@ -83,7 +83,11 @@ var last_player="";
 initialize();
 
 function initialize(){
-	
+	game_over = false;
+	player_mode=undefined;
+	player_number=1;
+	last_player="";
+
 	clear_board();
 	create_distribution(ai_difficulty_prob,dist_arr);
 }
