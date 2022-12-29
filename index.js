@@ -117,19 +117,19 @@ function checkGameOver(){
 		console.log("Player one wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Win!":"Player 1 Wins!");
-		//finish_game();
+		finish_game();
     }
     else if (checkFullCross("o")) {
         console.log("Player two wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Lose!":"Player 2 Wins!");
-		//finish_game();
+		finish_game();
     }
     else if (isTie()) {
         console.log("Tie!");
 		game_over=true;
 		io.emit("finish_game","Tie!");
-		//finish_game();
+		finish_game();
     }
 }
 
