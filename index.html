@@ -4,14 +4,17 @@
 <title>tic tac toe</title>
 <link rel="stylesheet" type="text/css" href="./welcome.css"></link>
 <link rel="icon" type="image/icon type" href="./favicon.ico"></link>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./constants.js"></script>
+<script defer src="./welcome.js"></script>
 </head>
 <body>
 <div id="container">
 	<div id="title_text">Tic Tac Toe</div>
 	<div id="mode_selection_text">Play Now</div>
 	<ul>
-		<li><a href="./game.html?mode=1p">One Player</a></li>
-		<li><a href="./game.html?mode=2p">Two Player</a></li>
+		<li><a href="./" onClick="onClickNewGame(event, '1p')">One Player</a></li>
+		<li><a href="./" onClick="onClickNewGame(event, '2p')">Two Player</a></li>
 	</ul>
 </div>
 </body>

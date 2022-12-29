@@ -40,6 +40,11 @@ const io= require("socket.io")(server, {
 io.on("connection", (socket)=>{
 	console.log("user connected");
 	
+	socket.on("synchronize_empty_board",(msg)=>{
+		if(msg==="1p")finish_game();
+		else clear_board();
+	});
+	
 	socket.on("player_mode",(msg)=>{
 		console.log(`initializing ${msg===-1}`);
 		if(player_mode===undefined){
@@ -48,13 +53,11 @@ io.on("connection", (socket)=>{
 		}
 		
 		//assign p1 and p2
-		if(player_mode!==undefined){
-			//use socket for individual role assignment rather than broadcast
+		//use socket for individual role assignment rather than broadcast
 			socket.emit("role_assignment",player_number);
 			//prepare for next assignment
 			if(player_mode==="2p"&&player_number===1)player_number=2;
 			else player_number=1;
-		}
 	});
 	
 	
@@ -81,12 +84,6 @@ var player_mode=undefined;
 var player_number=1;
 var last_player="";
 
-initialize();
-
-function initialize(){
-	finish_game();
-	
-}
 
 function onBoardClick(pos_x, pos_y, symbol) {
 	console.log(`symbol ${symbol} clicked`);
