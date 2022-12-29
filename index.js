@@ -72,7 +72,6 @@ io.on("connection", (socket)=>{
 server.listen(8080,()=>console.log("listening on port 8080"));
 
 
-const session_ids=[];
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
 var move;
 var consts=null;
