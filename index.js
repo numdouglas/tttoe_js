@@ -44,7 +44,7 @@ io.on("connection", (socket)=>{
 		console.log(`initializing ${msg===-1}`);
 		if(player_mode===undefined){
 			if(msg===-1)player_mode="2p"
-			else player_mode="1p"
+			else {player_mode="1p";create_distribution(ai_difficulty_prob,dist_arr);}
 		}
 		
 		//assign p1 and p2
@@ -81,12 +81,11 @@ var player_mode=undefined;
 var player_number=1;
 var last_player="";
 
-finish_game();
 initialize();
 
 function initialize(){
-
-	create_distribution(ai_difficulty_prob,dist_arr);
+	finish_game();
+	
 }
 
 function onBoardClick(pos_x, pos_y, symbol) {
