@@ -69,6 +69,7 @@ io.on("connection", (socket)=>{
 server.listen(8080,()=>console.log("listening on port 8080"));
 
 
+const session_ids=[];
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
 var move;
 var consts=null;
@@ -80,11 +81,11 @@ var player_mode=undefined;
 var player_number=1;
 var last_player="";
 
+finish_game();
 initialize();
 
 function initialize(){
-	
-	finish_game();
+
 	create_distribution(ai_difficulty_prob,dist_arr);
 }
 
