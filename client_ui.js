@@ -10,6 +10,7 @@ const int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 var m_role="";
 
+
 socket.on(event_consts.CONNECT,()=>{
 	console.log("connect");
 	socket.emit("player_mode",window.location.search.search("1p"));
