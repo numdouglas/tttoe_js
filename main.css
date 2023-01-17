@@ -56,20 +56,17 @@ body{
 
 .tile{
 	background-color:#c0c0c0;
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:20vh;
 	width:26vh;
 	height:26vh;
 }
 
 .tile--xclick{
 	background-image:url("cross.svg");
-	background-repeat:no-repeat;
-	background-position:center center;
-	background-size:20vh;
 }
 
 .tile--oclick{
 	background-image:url("circle.svg");
-	background-repeat:no-repeat;
-	background-position:center center;
-	background-size:20vh;
 }
