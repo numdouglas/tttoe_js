@@ -91,7 +91,7 @@ function onBoardClick(pos_x, pos_y, symbol) {
 	last_player=symbol;
     board_state[pos_x][pos_y] = symbol;
 	console.log("sending feedback");
-	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol==="x"?"gold":"brown"}`);
+	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol}`);
 	checkGameOver();
 	
 	if(player_mode==="1p")ai_play();
@@ -104,7 +104,7 @@ function ai_play(){
     console.log(move);
     board_state[move.x][move.y] = "o";
 	last_player="o";
-	io.emit("player_1_ui_feedback",`${move.x},${move.y},brown`);
+	io.emit("player_1_ui_feedback",`${move.x},${move.y},o`);
 	checkGameOver();
 }
 

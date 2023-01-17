@@ -44,12 +44,32 @@ body{
 	gap:1em;
 	width:calc(78vh+1em);
 	height:calc(78vh+1em);
-	background-color:aqua;
+	background-color: #fffafa;
 }
 
-.board > div{
+/*.board > div{
 	background-color:gainsboro;
 	width:26vh;
 	height:26vh;
-	/*padding:3em;*/
+	/*padding:3em;
+}*/
+
+.tile{
+	background-color:#c0c0c0;
+	width:26vh;
+	height:26vh;
+}
+
+.tile--xclick{
+	background-image:url("cross.svg");
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:20vh;
+}
+
+.tile--oclick{
+	background-image:url("circle.svg");
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:20vh;
 }

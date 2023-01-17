@@ -24,7 +24,8 @@ socket.on(event_consts.ROLE_ASSIGNMENT,(msg)=>{
 
 socket.on(event_consts.UI_FEEDBACK,(message)=>{
 	const args_arr=message.split(",");
-	div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
+	//div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
+	div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].classList.add(args_arr[2]==="x"?"tile--xclick":"tile--oclick");
 	//last_turn=last_turn==="o"?"x":"o";
 });
 socket.on(event_consts.GAME_OVER, (message)=>{
