@@ -5,12 +5,12 @@ html{
 body{
 	display:grid;
 	grid-row:1/1;
-	grid-template-rows:10fr 90fr;
+	grid-template-rows:10fr 80fr 10fr;
 }
 
 #results_text {
-	grid-row:1/2;
-	font-size:5vh;
+	grid-row:1/1;
+	font-size:2em;
 	color:rgba(0,0,0,.0);
 	/*animation:game_over_text 2s ease-in;*/
 }
@@ -34,16 +34,13 @@ body{
 }
 
 
-
-
 .board{
 	display:grid;
 	justify-self:center;
-	align-self:center;
 	grid-template-columns:1fr 1fr 1fr;
 	gap:1em;
-	width:calc(78vh+1em);
-	height:calc(78vh+1em);
+	width:calc(60vw+2em);
+	height:calc(60vw+2em);
 	background-color: #fffafa;
 }
 
@@ -58,9 +55,10 @@ body{
 	background-color:#c0c0c0;
 	background-repeat:no-repeat;
 	background-position:center center;
-	background-size:20vh;
-	width:26vh;
-	height:26vh;
+	background-size:16vw;
+	border-radius:.2em;
+	width:20vw;
+	height:20vw;
 }
 
 .tile--xclick{
@@ -69,4 +67,15 @@ body{
 
 .tile--oclick{
 	background-image:url("circle.svg");
+}
+
+#val_banner_text{
+	display:flex;
+	color:magenta;
+	font-weight:bold;
+	font-size:2em;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+	grid-row:3/3;
 }
