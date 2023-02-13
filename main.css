@@ -73,7 +73,7 @@ body{
 	display:flex;
 	color:magenta;
 	font-weight:bold;
-	font-size:2em;
+	font-size:4em;
 	flex-direction:column;
 	align-items:center;
 	justify-content:center;
