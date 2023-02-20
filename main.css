@@ -40,26 +40,34 @@ body{
 	grid-template-columns:1fr 1fr 1fr;
 	gap:1em;
 	grid-row:2/2;
-	width:calc(60vw+2em);
-	height:calc(60vw+2em);
+	width:calc(60vmin+2em);
+	height:calc(60vmin+2em);
 	background-color: #fffafa;
 }
 
-/*.board > div{
-	background-color:gainsboro;
-	width:26vh;
-	height:26vh;
-	/*padding:3em;
+/*
+@media (orientation:landscape){
+	.board{
+		background-color:aqua;
+		width:calc(60vmin+2em);
+		height:calc(60vh+2em);
+	}
+	.tile{
+		background-size:16vh;
+		width:10vw;
+		height:10vw;
+	}
 }*/
+
 
 .tile{
 	background-color:#c0c0c0;
 	background-repeat:no-repeat;
 	background-position:center center;
-	background-size:16vw;
+	background-size:16vmin;
 	border-radius:.2em;
-	width:20vw;
-	height:20vw;
+	width:20vmin;
+	height:20vmin;
 }
 
 .tile--xclick{
@@ -68,16 +76,4 @@ body{
 
 .tile--oclick{
 	background-image:url("circle.svg");
-}
-
-#val_banner_text{
-	display:flex;
-	color:magenta;
-	font-weight:bold;
-	font-size:3em;
-	flex-basis:100%;
-	flex-direction:column;
-	align-items:center;
-	justify-content:center;
-	grid-row:3/3;
 }
