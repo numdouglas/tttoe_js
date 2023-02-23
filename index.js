@@ -4,6 +4,7 @@ require("dotenv").config();
 const express=require("express");
 const http=require("http");
 const cors=require("cors");
+const fs=require("fs");
 
 const app = express();
 
@@ -14,7 +15,24 @@ const server=http.createServer(app);
 	"credentials":"true",
 	"allowedHeaders":"Content-Type,Authorization"
 	}));*/
-app.use(express.static("./"));
+app.use(express.static(".",{extensions: ["html"]}));
+
+//map index static file
+app.get("/home", (req,res) => {
+     fs.readFile("./index.html", function(err,data){
+          res.writeHead(200, {"Content-Type": "text/html"});
+          res.write(data);
+          res.end();
+     });
+});
+
+app.get("/game", (req,res) => {
+     fs.readFile("./game.html", function(err,data){
+          res.writeHead(200, {"Content-Type": "text/html"});
+          res.write(data);
+          res.end();
+     });
+});
 
 // .listen(8080, () => console.log(`Listening on 8080`));
 /*var n_static=require("node-static");

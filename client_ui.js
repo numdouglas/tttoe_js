@@ -32,7 +32,8 @@ socket.on(event_consts.GAME_OVER, (message)=>{
 	const results_text = document.getElementById("results_text");
     results_text.textContent = (message==="Tie!"||message==="You Win!"||message==="You Lose!")?message:message==="Player 1 Wins!"&&m_role==="x"?"You Win!":"You Lose!";
 	results_text.style.animation=animation_css_text;
-	wait(4000).then(()=>{window.location.replace("./index.html");});
+	//wait(4000).then(()=>{window.location.replace("./index.html");});
+	wait(4000).then(()=>{window.location.replace("/home");});
     //game_over = true;
 });
 

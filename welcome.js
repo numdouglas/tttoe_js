@@ -8,6 +8,6 @@ function onClickNewGame(evt, mode){
 	evt.preventDefault();
 	console.log(mode);
 	socket.emit("synchronize_empty_board",`${mode}`);
-	window.location.assign(`./game.html?mode=${mode}`)
+	window.location.assign(`./game?mode=${mode}`)
 	
 }
