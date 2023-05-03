@@ -5,6 +5,27 @@ const express=require("express");
 const http=require("http");
 const cors=require("cors");
 const fs=require("fs");
+const {w_logger}=require("winston");
+require("winston-daily-rotate-file");
+
+//dailyfilerotate function
+const file_rotate_transport=new transports.DailyRotateFile({
+	filename: "logs/tttoe_debug_%DATE%.log",
+	datePattern: "YYYY-MM-DD",
+	maxFiles: "14d",
+	maxSize: "50m"
+});
+
+const logger=w_logger.createLogger({
+	level:"debug",
+	format:w_logger.format.json(),
+	transports:[
+		file_rotate_transport,
+		new w_logger.transports.File({
+			level: "debug"
+			//,name: "logs/tttoe_debug.log"
+	})]
+});
 
 const app = express();
 
@@ -56,7 +77,7 @@ const io= require("socket.io")(server, {
 });
 
 io.on("connection", (socket)=>{
-	console.log("user connected");
+	logger.debug("user connected");
 	
 	socket.on("synchronize_empty_board",(msg)=>{
 		if(msg==="1p")finish_game();
@@ -64,7 +85,7 @@ io.on("connection", (socket)=>{
 	});
 	
 	socket.on("player_mode",(msg)=>{
-		console.log(`initializing ${msg===-1}`);
+		logger.debug(`initializing ${msg===-1}`);
 		if(player_mode===undefined){
 			if(msg===-1)player_mode="2p"
 			else {player_mode="1p";create_distribution(ai_difficulty_prob,dist_arr);}
@@ -87,7 +108,7 @@ io.on("connection", (socket)=>{
 
 });
 
-server.listen(8080,()=>console.log("listening on port 8080"));
+server.listen(8080,()=>logger.debug("listening on port 8080"));
 
 
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
@@ -103,12 +124,12 @@ var last_player="";
 
 
 function onBoardClick(pos_x, pos_y, symbol) {
-	console.log(`symbol ${symbol} clicked`);
+	logger.debug(`symbol ${symbol} clicked`);
     if (game_over || board_state[pos_x][pos_y] !== "-"|| last_player===symbol) return;
 	
 	last_player=symbol;
     board_state[pos_x][pos_y] = symbol;
-	console.log("sending feedback");
+	logger.debug("sending feedback");
 	io.emit("player_1_ui_feedback",`${pos_x},${pos_y},${symbol}`);
 	checkGameOver();
 	
@@ -119,7 +140,7 @@ function ai_play(){
 	shuffleArray(dist_arr);
     var rand_or_maxxed = dist_arr[0];
     move = rand_or_maxxed === 0 ? minimax() : make_random_move();
-    console.log(move);
+    logger.debug(move);
     board_state[move.x][move.y] = "o";
 	last_player="o";
 	io.emit("player_1_ui_feedback",`${move.x},${move.y},o`);
@@ -128,19 +149,19 @@ function ai_play(){
 
 function checkGameOver(){	
     if (checkFullCross("x")) {
-		console.log("Player one wins!");
+		logger.debug("Player one wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Win!":"Player 1 Wins!");
 		finish_game();
     }
     else if (checkFullCross("o")) {
-        console.log("Player two wins!");
+        logger.debug("Player two wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Lose!":"Player 2 Wins!");
 		finish_game();
     }
     else if (isTie()) {
-        console.log("Tie!");
+        logger.debug("Tie!");
 		game_over=true;
 		io.emit("finish_game","Tie!");
 		finish_game();
@@ -244,17 +265,17 @@ function isTie() {
 
 function printBoard() {
     var row_str = "";
-    console.log("+-----------------+");
+    logger.debug("+-----------------+");
     for (let i = 0; i < 3; i++) {
         row_str += "\n|";
         for (let j = 0; j < 3; j++) {
             //console.log(board_state[i][j]);
             row_str += board_state[i][j] + " |";
         }
-        console.log(row_str);
+        logger.debug(row_str);
         row_str = "";
     }
-    console.log("\n+-----------------+\n");
+    logger.debug("\n+-----------------+\n");
 }
 
 
