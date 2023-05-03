@@ -1,0 +1,49 @@
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"initializing false"}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":0,"y":0}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":2,"y":1}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":1,"y":2}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":0,"y":2}}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"initializing false"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"initializing false"}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":0,"y":0}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":1,"y":2}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":2,"y":1}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":{"x":0,"y":2}}
+{"level":"debug","message":"symbol x clicked"}
+{"level":"debug","message":"sending feedback"}
+{"level":"debug","message":"Tie!"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"listening on port 8080"}
+{"level":"debug","message":"user connected"}
+{"level":"debug","message":"listening on port 8080","timestamp":"2023-05-03T11:24:30.344Z"}
+{"level":"debug","message":"user connected","timestamp":"2023-05-03T11:24:30.429Z"}
+{"level":"debug","message":"listening on port 8080","timestamp":"2023-05-03T11:25:42.670Z"}
+{"level":"debug","message":"user connected","timestamp":"2023-05-03T11:25:42.733Z"}

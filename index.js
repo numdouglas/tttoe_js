@@ -5,26 +5,29 @@ const express=require("express");
 const http=require("http");
 const cors=require("cors");
 const fs=require("fs");
-const {w_logger}=require("winston");
+const winston=require("winston");
+const {combine,timestamp,json}=winston.format;
 require("winston-daily-rotate-file");
 
 //dailyfilerotate function
-const file_rotate_transport=new transports.DailyRotateFile({
+const file_rotate_transport=new winston.transports.DailyRotateFile({
 	filename: "logs/tttoe_debug_%DATE%.log",
 	datePattern: "YYYY-MM-DD",
 	maxFiles: "14d",
 	maxSize: "50m"
 });
 
-const logger=w_logger.createLogger({
+const logger=winston.createLogger({
 	level:"debug",
-	format:w_logger.format.json(),
+	format: combine(timestamp(),json()),
 	transports:[
 		file_rotate_transport,
-		new w_logger.transports.File({
+		new winston.transports.Console()
+		/*new transports.File({
 			level: "debug"
-			//,name: "logs/tttoe_debug.log"
-	})]
+			filename: "logs/tttoe_debug.log"
+	})*/
+	]
 });
 
 const app = express();

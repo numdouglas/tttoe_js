@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs\\.a229314328c4a40a02b4cf79f1b226f02a2e5598-audit.json",
+    "files": [
+        {
+            "date": 1683108263335,
+            "name": "logs\\tttoe_debug_2023-05-03.log",
+            "hash": "2577f1f2669ca718e425f16a65282618119f8336743d5f9a26c1751158b78448"
+        }
+    ],
+    "hashType": "sha256"
+}
