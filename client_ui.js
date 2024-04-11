@@ -28,13 +28,14 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 	//last_turn=last_turn==="o"?"x":"o";
 });
 g_socket.on(event_consts.GAME_OVER, (message) => {
+	console.log("GAME OVER");
+
 	const results_text = document.getElementById("results_text");
 	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "You Lose!") ? message :
 		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "You Lose!";
 	results_text.style.animation = g_animation_css_text;
 
 	//console.log(`game over vars text: ${message} role: ${g_role}`);
-	console.log("GAME OVER");
 	//wait(4000).then(()=>{window.location.replace("./index.html");});
 	wait(4000).then(() => { window.location.replace("/home"); });
 	//game_over = true;
