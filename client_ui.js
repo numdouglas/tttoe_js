@@ -1,7 +1,7 @@
 var DOMAIN = window.location.hostname;
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 //client dependencies
-const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of local testing,
+const g_socket = io();/*the port and http are used for purposes of local testing,
 										otherwise prod doesn't need them as traffic is proxied*/
 const g_div = document.getElementById("board").children;
 const g_animation_css_text = "game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";

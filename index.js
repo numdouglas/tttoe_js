@@ -136,7 +136,7 @@ function onBoardClick(pos_x, pos_y, symbol) {
     last_player = symbol;
     board_state[pos_x][pos_y] = symbol;
     logger.debug("sending feedback");
-    g_socket_instance.emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
+    io.emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
     checkGameOver();
 
     if (player_mode === "1p") ai_play();
@@ -149,7 +149,7 @@ function ai_play() {
     logger.debug(move);
     board_state[move.x][move.y] = "o";
     last_player = "o";
-    g_socket_instance.emit("player_1_ui_feedback", `${move.x},${move.y},o`);
+    io.emit("player_1_ui_feedback", `${move.x},${move.y},o`);
     checkGameOver();
 }
 
@@ -157,19 +157,19 @@ function checkGameOver() {
     if (checkFullCross("x")) {
         logger.debug("Player one wins!");
         game_over = true;
-        g_socket_instance.emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
+        io.emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         finish_game();
     }
     else if (checkFullCross("o")) {
         logger.debug("Player two Wins!");
         game_over = true;
-        g_socket_instance.emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
+        io.emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
         finish_game();
     }
     else if (isTie()) {
         logger.debug("Tie!");
         game_over = true;
-        g_socket_instance.emit("finish_game", "Tie!");
+        io.emit("finish_game", "Tie!");
         finish_game();
     }
 }
