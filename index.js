@@ -158,7 +158,7 @@ function checkGameOver(){
 		finish_game();
     }
     else if (checkFullCross("o")) {
-        logger.debug("Player two wins!");
+        logger.debug("Player two Wins!");
 		game_over=true;
 		io.emit("finish_game",player_mode==="1p"?"You Lose!":"Player 2 Wins!");
 		finish_game();
