@@ -9,6 +9,7 @@ const winston = require("winston");
 const { combine, timestamp, json } = winston.format;
 var g_socket_instance = undefined;
 require("winston-daily-rotate-file");
+process.env.DEBUG="*";
 
 //dailyfilerotate function
 const file_rotate_transport = new winston.transports.DailyRotateFile({
@@ -85,6 +86,8 @@ io.on("connection", (socket) => {
 
     g_socket_instance = socket;
 
+    g_socket_instance.join("room1");
+
     g_socket_instance.on("synchronize_empty_board", (msg) => {
         if (msg === "1p") finish_game();
         else clear_board();
@@ -136,7 +139,7 @@ function onBoardClick(pos_x, pos_y, symbol) {
     last_player = symbol;
     board_state[pos_x][pos_y] = symbol;
     logger.debug("sending feedback");
-    io.emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
+    io.to("room1").emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
     checkGameOver();
 
     if (player_mode === "1p") ai_play();
@@ -149,7 +152,7 @@ function ai_play() {
     logger.debug(move);
     board_state[move.x][move.y] = "o";
     last_player = "o";
-    io.emit("player_1_ui_feedback", `${move.x},${move.y},o`);
+    io.to("room1").emit("player_1_ui_feedback", `${move.x},${move.y},o`);
     checkGameOver();
 }
 
@@ -157,19 +160,19 @@ function checkGameOver() {
     if (checkFullCross("x")) {
         logger.debug("Player one wins!");
         game_over = true;
-        io.emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
+        io.to("room1").emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         finish_game();
     }
     else if (checkFullCross("o")) {
         logger.debug("Player two Wins!");
         game_over = true;
-        io.emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
+        io.to("room1").emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
         finish_game();
     }
     else if (isTie()) {
         logger.debug("Tie!");
         game_over = true;
-        io.emit("finish_game", "Tie!");
+        io.to("room1").emit("finish_game", "Tie!");
         finish_game();
     }
 }

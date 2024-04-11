@@ -1,18 +1,22 @@
 var DOMAIN = window.location.hostname;
+window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 //client dependencies
-const g_socket = io();/*the port and http are used for purposes of local testing,
-										otherwise prod doesn't need them as traffic is proxied*/
+const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of local testing,
+//										otherwise prod doesn't need them as traffic is proxied*/
 const g_div = document.getElementById("board").children;
 const g_animation_css_text = "game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
 const g_int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 var g_role = "";
 
+g_socket.emit("join","room1");
 
-g_socket.on(event_consts.CONNECT, () => {
+g_socket.on(event_consts.CONNECT, (socket) => {
 	console.log("connect");
 	g_socket.emit("player_mode", window.location.search.search("1p"));
+
+	console.log(socket);
 });
 
 g_socket.on(event_consts.ROLE_ASSIGNMENT, (msg) => {
@@ -28,6 +32,7 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 	//last_turn=last_turn==="o"?"x":"o";
 	console.log(`ui feedback ${message}`);
 });
+
 g_socket.on(event_consts.GAME_OVER, (message) => {
 	console.log("GAME OVER");
 
