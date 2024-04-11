@@ -148,3 +148,41 @@
 {"level":"debug","message":"user connected","timestamp":"2024-04-11T06:43:36.108Z"}
 {"level":"debug","message":"user connected","timestamp":"2024-04-11T06:43:39.963Z"}
 {"level":"debug","message":"initializing true","timestamp":"2024-04-11T06:43:40.038Z"}
+{"level":"debug","message":"listening on port 8080","timestamp":"2024-04-11T06:43:57.572Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:43:58.111Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:01.036Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T06:44:01.104Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:06.039Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T06:44:06.101Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T06:44:08.452Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:08.456Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:11.200Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:11.207Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T06:44:14.035Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:14.036Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:16.979Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:16.981Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T06:44:19.165Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:19.166Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:23.275Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:23.276Z"}
+{"level":"debug","message":"Player two Wins!","timestamp":"2024-04-11T06:44:23.279Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:27.767Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:27.858Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:39.126Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T06:44:39.198Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:41.692Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T06:44:41.752Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:42.793Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:42.795Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T06:44:45.212Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:45.213Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:47.648Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:47.654Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T06:44:49.862Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:49.863Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T06:44:53.251Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T06:44:53.252Z"}
+{"level":"debug","message":"Player two Wins!","timestamp":"2024-04-11T06:44:53.255Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:57.935Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T06:44:58.123Z"}
