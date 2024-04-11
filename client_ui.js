@@ -34,6 +34,17 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 g_socket.on(event_consts.GAME_OVER, (message) => {
 	console.log("GAME OVER");
 
+	console.log(message);
+
+	const msg_arr = message.split(",");
+	message = msg_arr.pop();
+
+	//mark the winning plane
+	for (let x of msg_arr) {
+		g_div[x].classList.add("tile--ocolor");
+	}
+
+	console.log(message);
 	const results_text = document.getElementById("results_text");
 	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "You Lose!") ? message :
 		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "You Lose!";

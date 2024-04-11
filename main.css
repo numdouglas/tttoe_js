@@ -77,3 +77,7 @@ body{
 .tile--oclick{
 	background-image:url("circle.svg");
 }
+
+.tile--ocolor{
+	background-image:url("red_circle.png");
+}

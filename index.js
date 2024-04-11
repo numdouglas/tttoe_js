@@ -17,6 +17,7 @@ const file_rotate_transport = new winston.transports.DailyRotateFile({
     maxFiles: "14d",
     maxSize: "50m"
 });
+const g_int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 const logger = winston.createLogger({
     level: "debug",
@@ -155,23 +156,29 @@ function ai_play() {
 }
 
 function checkGameOver() {
-    if (checkFullCross("x")) {
+    let x_win = checkFullCross("x");
+    if (x_win.length > 0) {
         logger.debug("Player one wins!");
         game_over = true;
-        io.to(GAME_ROOM_NOM).emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
+        x_win.push(player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
+        io.to(GAME_ROOM_NOM).emit("finish_game", `${x_win}`);
         finish_game();
     }
-    else if (checkFullCross("o")) {
-        logger.debug("Player two Wins!");
-        game_over = true;
-        io.to(GAME_ROOM_NOM).emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
-        finish_game();
-    }
-    else if (isTie()) {
-        logger.debug("Tie!");
-        game_over = true;
-        io.to(GAME_ROOM_NOM).emit("finish_game", "Tie!");
-        finish_game();
+    else {
+        let o_win = checkFullCross("o");
+        if (o_win.length > 0) {
+            logger.debug("Player two Wins!");
+            game_over = true;
+            o_win.push(player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
+            io.to(GAME_ROOM_NOM).emit("finish_game", `${o_win}`);
+            finish_game();
+        }
+        else if (isTie()) {
+            logger.debug("Tie!");
+            game_over = true;
+            io.to(GAME_ROOM_NOM).emit("finish_game", ["Tie!"]);
+            finish_game();
+        }
     }
 }
 
@@ -180,21 +187,29 @@ function checkFullCross(player) {
     for (let i = 0; i < 3; i++) {
         // Check horizontals
         if (board_state[i][0] == player && board_state[i][1] == player && board_state[i][2] == player)
-            return true;
+            return [coords_to_boardpos(i, 0), coords_to_boardpos(i, 1), coords_to_boardpos(i, 2)];
 
         // Check verticals
         if (board_state[0][i] == player && board_state[1][i] == player && board_state[2][i] == player)
-            return true;
+            return [coords_to_boardpos(0, i), coords_to_boardpos(1, i), coords_to_boardpos(2, i)];
     }
 
     // Check diagonals
     if (board_state[0][0] == player && board_state[1][1] == player && board_state[2][2] == player)
-        return true;
+        return [coords_to_boardpos(0, 0), coords_to_boardpos(1, 1), coords_to_boardpos(2, 2)];
 
     if (board_state[0][2] == player && board_state[1][1] == player && board_state[2][0] == player)
-        return true;
+        return [coords_to_boardpos(0, 2), coords_to_boardpos(1, 1), coords_to_boardpos(2, 0)];
 
-    return false;
+    return [];
+}
+
+function coords_to_boardpos(coordx, coordy) {
+    for (let i = 0; i < g_int_form_board_coords.length; i++) {
+        if ((10 * coordx + coordy) === g_int_form_board_coords[i])
+            return i;
+    }
+    return -1;
 }
 
 function minimax() {
@@ -221,8 +236,8 @@ function minimax() {
 }
 
 function max() {
-    if (checkFullCross("x")) return 10;
-    else if (checkFullCross("o")) return -10;
+    if (checkFullCross("x").length > 0) return 10;
+    else if (checkFullCross("o").length > 0) return -10;
     else if (isTie()) return 0;
 
 
@@ -241,8 +256,8 @@ function max() {
 }
 
 function min() {
-    if (checkFullCross("x")) return 10;
-    else if (checkFullCross("o")) return -10;
+    if (checkFullCross("x").length > 0) return 10;
+    else if (checkFullCross("o").length > 0) return -10;
     else if (isTie()) return 0;
 
 
