@@ -26,6 +26,7 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 	//div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
 	g_div[coords_to_boardpos(parseInt(args_arr[0]), parseInt(args_arr[1]))].classList.add(args_arr[2] === "x" ? "tile--xclick" : "tile--oclick");
 	//last_turn=last_turn==="o"?"x":"o";
+	console.log(`ui feedback ${message}`);
 });
 g_socket.on(event_consts.GAME_OVER, (message) => {
 	console.log("GAME OVER");
