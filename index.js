@@ -160,6 +160,7 @@ function checkGameOver() {
     if (x_win.length > 0) {
         logger.debug("Player one wins!");
         game_over = true;
+        x_win.push("x");
         x_win.push(player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         io.to(GAME_ROOM_NOM).emit("finish_game", `${x_win}`);
         finish_game();
@@ -169,6 +170,7 @@ function checkGameOver() {
         if (o_win.length > 0) {
             logger.debug("Player two Wins!");
             game_over = true;
+            o_win.push("o");
             o_win.push(player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
             io.to(GAME_ROOM_NOM).emit("finish_game", `${o_win}`);
             finish_game();
@@ -176,7 +178,7 @@ function checkGameOver() {
         else if (isTie()) {
             logger.debug("Tie!");
             game_over = true;
-            io.to(GAME_ROOM_NOM).emit("finish_game", ["Tie!"]);
+            io.to(GAME_ROOM_NOM).emit("finish_game", "Tie!");
             finish_game();
         }
     }

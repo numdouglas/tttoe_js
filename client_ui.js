@@ -28,30 +28,36 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 	//div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
 	g_div[coords_to_boardpos(parseInt(args_arr[0]), parseInt(args_arr[1]))].classList.add(args_arr[2] === "x" ? "tile--xclick" : "tile--oclick");
 	//last_turn=last_turn==="o"?"x":"o";
-	console.log(`ui feedback ${message}`);
+	//console.log(`ui feedback ${message}`);
 });
 
 g_socket.on(event_consts.GAME_OVER, (message) => {
-	console.log("GAME OVER");
+	//console.log("GAME OVER");
 
 	console.log(message);
 
 	const msg_arr = message.split(",");
 	message = msg_arr.pop();
+	const winner_symbol = msg_arr.pop();
 
-	//mark the winning plane
-	for (let x of msg_arr) {
-		g_div[x].classList.add("tile--ocolor");
-	}
-
-	console.log(message);
+	//console.log(message);
 	const results_text = document.getElementById("results_text");
 	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "You Lose!") ? message :
 		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "You Lose!";
 	results_text.style.animation = g_animation_css_text;
 
-	//console.log(`game over vars text: ${message} role: ${g_role}`);
-	//wait(4000).then(()=>{window.location.replace("./index.html");});
+	//mark the winning plane
+	for (let x of msg_arr) {
+		switch (winner_symbol) {
+			case "x":
+				g_div[x].classList.add("tile--xcolor");
+				break;
+			case "o":
+				g_div[x].classList.add("tile--ocolor");
+				break;
+		}
+	}
+
 	wait(4000).then(() => { window.location.replace("/home"); });
 	//game_over = true;
 });

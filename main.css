@@ -78,6 +78,10 @@ body{
 	background-image:url("circle.svg");
 }
 
+.tile--xcolor{
+	background-image:url("red_cross.svg");
+}
+
 .tile--ocolor{
-	background-image:url("red_circle.png");
+	background-image:url("red_circle.svg");
 }
