@@ -7,9 +7,8 @@ const cors = require("cors");
 const fs = require("fs");
 const winston = require("winston");
 const { combine, timestamp, json } = winston.format;
-var g_socket_instance = undefined;
 require("winston-daily-rotate-file");
-process.env.DEBUG="*";
+//process.env.DEBUG="*";
 
 //dailyfilerotate function
 const file_rotate_transport = new winston.transports.DailyRotateFile({
@@ -32,6 +31,7 @@ const logger = winston.createLogger({
     ]
 });
 
+const GAME_ROOM_NOM = "room0";
 const app = express();
 
 const server = http.createServer(app);
@@ -84,16 +84,14 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
     logger.debug("user connected");
 
-    g_socket_instance = socket;
+    socket.join(GAME_ROOM_NOM);
 
-    g_socket_instance.join("room1");
-
-    g_socket_instance.on("synchronize_empty_board", (msg) => {
+    socket.on("synchronize_empty_board", (msg) => {
         if (msg === "1p") finish_game();
         else clear_board();
     });
 
-    g_socket_instance.on("player_mode", (msg) => {
+    socket.on("player_mode", (msg) => {
         logger.debug(`initializing ${msg === -1}`);
         if (player_mode === undefined) {
             if (msg === -1) player_mode = "2p"
@@ -102,14 +100,14 @@ io.on("connection", (socket) => {
 
         //assign p1 and p2
         //use socket for individual role assignment rather than broadcast
-        g_socket_instance.emit("role_assignment", player_number);
+        socket.emit("role_assignment", player_number);
         //prepare for next assignment
         if (player_mode === "2p" && player_number === 1) player_number = 2;
         else player_number = 1;
     });
 
 
-    g_socket_instance.on("player_click", (message) => {
+    socket.on("player_click", (message) => {
 
         var args_arr = message.split(",");
         onBoardClick(args_arr[0], args_arr[1], args_arr[2]);
@@ -139,7 +137,7 @@ function onBoardClick(pos_x, pos_y, symbol) {
     last_player = symbol;
     board_state[pos_x][pos_y] = symbol;
     logger.debug("sending feedback");
-    io.to("room1").emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
+    io.to(GAME_ROOM_NOM).emit("player_1_ui_feedback", `${pos_x},${pos_y},${symbol}`);
     checkGameOver();
 
     if (player_mode === "1p") ai_play();
@@ -152,7 +150,7 @@ function ai_play() {
     logger.debug(move);
     board_state[move.x][move.y] = "o";
     last_player = "o";
-    io.to("room1").emit("player_1_ui_feedback", `${move.x},${move.y},o`);
+    io.to(GAME_ROOM_NOM).emit("player_1_ui_feedback", `${move.x},${move.y},o`);
     checkGameOver();
 }
 
@@ -160,19 +158,19 @@ function checkGameOver() {
     if (checkFullCross("x")) {
         logger.debug("Player one wins!");
         game_over = true;
-        io.to("room1").emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
+        io.to(GAME_ROOM_NOM).emit("finish_game", player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         finish_game();
     }
     else if (checkFullCross("o")) {
         logger.debug("Player two Wins!");
         game_over = true;
-        io.to("room1").emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
+        io.to(GAME_ROOM_NOM).emit("finish_game", player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
         finish_game();
     }
     else if (isTie()) {
         logger.debug("Tie!");
         game_over = true;
-        io.to("room1").emit("finish_game", "Tie!");
+        io.to(GAME_ROOM_NOM).emit("finish_game", "Tie!");
         finish_game();
     }
 }

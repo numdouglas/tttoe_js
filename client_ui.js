@@ -1,5 +1,5 @@
 var DOMAIN = window.location.hostname;
-window.localStorage.debug = "*";
+//window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 //client dependencies
 const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of local testing,
@@ -10,7 +10,7 @@ const g_int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 var g_role = "";
 
-g_socket.emit("join","room1");
+g_socket.emit("join", "room0");
 
 g_socket.on(event_consts.CONNECT, (socket) => {
 	console.log("connect");

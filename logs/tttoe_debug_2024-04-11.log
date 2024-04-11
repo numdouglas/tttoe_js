@@ -1253,3 +1253,72 @@
 {"level":"debug","message":"sending feedback","timestamp":"2024-04-11T11:43:15.338Z"}
 {"level":"debug","message":"Player one wins!","timestamp":"2024-04-11T11:43:15.344Z"}
 {"level":"debug","message":"user connected","timestamp":"2024-04-11T11:43:19.619Z"}
+{"level":"debug","message":"listening on port 8080","timestamp":"2024-04-11T12:04:58.823Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:04:59.014Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:03.712Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:06.148Z"}
+{"level":"debug","message":"initializing false","timestamp":"2024-04-11T12:05:06.354Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:08.837Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:08.840Z"}
+{"level":"debug","message":{"x":0,"y":0},"timestamp":"2024-04-11T12:05:08.935Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:10.105Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:10.107Z"}
+{"level":"debug","message":{"x":2,"y":1},"timestamp":"2024-04-11T12:05:10.120Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:11.455Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:11.457Z"}
+{"level":"debug","message":{"x":2,"y":2},"timestamp":"2024-04-11T12:05:11.469Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:12.683Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:12.685Z"}
+{"level":"debug","message":"Player one wins!","timestamp":"2024-04-11T12:05:12.698Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:17.496Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:18.757Z"}
+{"level":"debug","message":"initializing false","timestamp":"2024-04-11T12:05:18.942Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:19.561Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:19.562Z"}
+{"level":"debug","message":{"x":1,"y":0},"timestamp":"2024-04-11T12:05:19.573Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:20.460Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:20.461Z"}
+{"level":"debug","message":{"x":0,"y":0},"timestamp":"2024-04-11T12:05:20.473Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:22.323Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:22.324Z"}
+{"level":"debug","message":"Player one wins!","timestamp":"2024-04-11T12:05:22.335Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:26.742Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:28.409Z"}
+{"level":"debug","message":"initializing false","timestamp":"2024-04-11T12:05:28.592Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:29.246Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:29.247Z"}
+{"level":"debug","message":{"x":0,"y":0},"timestamp":"2024-04-11T12:05:29.271Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:31.476Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:31.477Z"}
+{"level":"debug","message":{"x":2,"y":1},"timestamp":"2024-04-11T12:05:31.490Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:33.589Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:33.590Z"}
+{"level":"debug","message":{"x":0,"y":2},"timestamp":"2024-04-11T12:05:33.604Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:35.264Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:35.266Z"}
+{"level":"debug","message":{"x":1,"y":2},"timestamp":"2024-04-11T12:05:35.279Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:05:36.674Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:05:36.675Z"}
+{"level":"debug","message":"Tie!","timestamp":"2024-04-11T12:05:36.683Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:40.992Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:52.823Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:05:58.501Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T12:05:58.727Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:06:00.589Z"}
+{"level":"debug","message":"initializing true","timestamp":"2024-04-11T12:06:00.757Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:06:02.935Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:02.938Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T12:06:04.859Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:04.860Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:06:06.821Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:06.823Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T12:06:08.757Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:08.758Z"}
+{"level":"debug","message":"symbol x clicked","timestamp":"2024-04-11T12:06:11.771Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:11.772Z"}
+{"level":"debug","message":"symbol o clicked","timestamp":"2024-04-11T12:06:16.205Z"}
+{"level":"debug","message":"sending feedback","timestamp":"2024-04-11T12:06:16.206Z"}
+{"level":"debug","message":"Player two Wins!","timestamp":"2024-04-11T12:06:16.220Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:06:20.951Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:06:21.064Z"}
+{"level":"debug","message":"user connected","timestamp":"2024-04-11T12:10:40.764Z"}
