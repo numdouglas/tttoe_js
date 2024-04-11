@@ -33,7 +33,7 @@ g_socket.on(event_consts.GAME_OVER, (message) => {
 		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "You Lose!";
 	results_text.style.animation = g_animation_css_text;
 
-	console.error(`game over vars text: ${results_text} role: ${g_role}`);
+	console.error(`game over vars text: ${message} role: ${g_role}`);
 	//wait(4000).then(()=>{window.location.replace("./index.html");});
 	wait(4000).then(() => { window.location.replace("/home"); });
 	//game_over = true;
