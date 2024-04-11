@@ -15,8 +15,6 @@ g_socket.emit("join", "room0");
 g_socket.on(event_consts.CONNECT, (socket) => {
 	console.log("connect");
 	g_socket.emit("player_mode", window.location.search.search("1p"));
-
-	console.log(socket);
 });
 
 g_socket.on(event_consts.ROLE_ASSIGNMENT, (msg) => {
