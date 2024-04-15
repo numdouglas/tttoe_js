@@ -171,7 +171,7 @@ function checkGameOver() {
             logger.debug("Player two Wins!");
             game_over = true;
             o_win.push("o");
-            o_win.push(player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
+            o_win.push(player_mode === "1p" ? "Opponent Wins!" : "Player 2 Wins!");
             io.to(GAME_ROOM_NOM).emit("finish_game", `${o_win}`);
             finish_game();
         }
