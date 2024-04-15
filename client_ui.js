@@ -42,8 +42,8 @@ g_socket.on(event_consts.GAME_OVER, (message) => {
 
 	//console.log(message);
 	const results_text = document.getElementById("results_text");
-	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "Opponent Wins!") ? message :
-		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "Opponent Wins!";
+	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "Rival Wins!") ? message :
+		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "Rival Wins!";
 	results_text.style.animation = g_animation_css_text;
 
 	//mark the winning plane
