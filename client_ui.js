@@ -1,5 +1,5 @@
 import { coords_to_boardpos } from "./common_methods.js";
-import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT } from "./constants.js";
+import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT, ANIMATION_CSS_TEXT } from "./constants.js";
 var DOMAIN = window.location.hostname;
 //window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
@@ -7,7 +7,6 @@ DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of local testing,
 //										otherwise prod doesn't need them as traffic is proxied*/
 const g_div = document.getElementById("board").children;
-const g_animation_css_text = "game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
 
 var g_role = "";
 
@@ -35,11 +34,11 @@ g_socket.on(UI_FEEDBACK, (message) => {
 g_socket.on(GAME_OVER, (message) => {
 	//console.log("GAME OVER");
 
-	console.log(message);
-	console.log(typeof message);
+	//console.log(message);
+	//console.log(typeof message);
 
 	const msg_arr = typeof message === "string" ? message.split(",") : message;
-	console.log(typeof msg_arr);
+	// console.log(typeof msg_arr);
 	message = msg_arr.pop();
 	const winner_symbol = msg_arr.pop();
 
@@ -47,11 +46,11 @@ g_socket.on(GAME_OVER, (message) => {
 	const results_text = document.getElementById("results_text");
 	results_text.textContent = (message === "Tie!" || message === "You Win!" || message === "Rival Wins!") ? message :
 		((message === "Player 1 Wins!" && g_role === "x") || (message === "Player 2 Wins!" && g_role === "o")) ? "You Win!" : "Rival Wins!";
-	results_text.style.animation = g_animation_css_text;
+	results_text.style.animation = ANIMATION_CSS_TEXT;
 
 	//mark the winning plane
 	for (let x of msg_arr) {
-		//console.log(`modifying div at pos ${x} of div ${g_div[x]}`);
+		//console.log(`modifying div at pos ${x} of div ${g_div[x]} and winner symbol ${winner_symbol}`);
 		switch (winner_symbol) {
 			case "x":
 				g_div[x].classList.add("tile--xcolor");

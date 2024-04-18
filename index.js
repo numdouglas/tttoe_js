@@ -17,6 +17,7 @@ const { combine, timestamp, json } = winston.format;
 //require("winston-daily-rotate-file");
 import "winston-daily-rotate-file";
 //process.env.DEBUG="*";
+import { coords_to_boardpos } from "./common_methods.js";
 
 //dailyfilerotate function
 const file_rotate_transport = new winston.transports.DailyRotateFile({
@@ -129,11 +130,9 @@ server.listen(8080, () => logger.debug("listening on port 8080"));
 
 const board_state = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]];
 var move;
-var consts = null;
 var game_over = false;
 var ai_difficulty_prob = .8;
 const dist_arr = [];
-const animation_css_text = "game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
 var player_mode = undefined;
 var player_number = 1;
 var last_player = "";
@@ -168,6 +167,7 @@ function checkGameOver() {
     if (x_win.length > 0) {
         logger.debug("Player one wins!");
         game_over = true;
+        x_win.push("x");
         x_win.push(player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         io.to(GAME_ROOM_NOM).emit("finish_game", `${x_win}`);
         finish_game();
@@ -177,6 +177,7 @@ function checkGameOver() {
         if (o_win.length > 0) {
             logger.debug("Player two Wins!");
             game_over = true;
+            o_win.push("o");
             o_win.push(player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
             io.to(GAME_ROOM_NOM).emit("finish_game", `${o_win}`);
             finish_game();
@@ -210,14 +211,6 @@ function checkFullCross(player) {
         return [coords_to_boardpos(0, 2), coords_to_boardpos(1, 1), coords_to_boardpos(2, 0)];
 
     return [];
-}
-
-function coords_to_boardpos(coordx, coordy) {
-    for (let i = 0; i < g_int_form_board_coords.length; i++) {
-        if ((10 * coordx + coordy) === g_int_form_board_coords[i])
-            return i;
-    }
-    return -1;
 }
 
 function minimax() {
