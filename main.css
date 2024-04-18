@@ -1,47 +1,49 @@
-html{
-	display:grid;
-	grid-template-rows:1fr;
+html {
+	display: grid;
+	grid-template-rows: 1fr;
 }
-body{
-	display:grid;
-	grid-row:1/1;
-	grid-template-rows:10fr 80fr 10fr;
+
+body {
+	display: grid;
+	grid-row: 1/1;
+	grid-template-rows: 10fr 80fr 10fr;
 }
 
 #results_text {
-	grid-row:1/1;
-	font-size:2em;
-	color:rgba(0,0,0,.0);
+	grid-row: 1/1;
+	font-size: 2em;
+	color: rgba(0, 0, 0, .0);
 	/*animation:game_over_text 2s ease-in;*/
 }
 
 
 @keyframes game_over_text {
 	80% {
-		color:rgba(0,0,0,.0);
+		color: rgba(0, 0, 0, .0);
 	}
+
 	100% {
-		color:rgba(0,0,0,1);
-		transform:translate(45%);
+		color: rgba(0, 0, 0, 1);
+		transform: translate(45%);
 	}
 }
 
 @keyframes game_over_text_two {
 	100% {
-		color:rgba(0,0,0,.0);
-		transform:translate(100%);
+		color: rgba(0, 0, 0, .0);
+		transform: translate(100%);
 	}
 }
 
 
-.board{
-	display:grid;
-	justify-self:center;
-	grid-template-columns:1fr 1fr 1fr;
-	gap:1em;
-	grid-row:2/2;
-	width:calc(60vmin+2em);
-	height:calc(60vmin+2em);
+.board {
+	display: grid;
+	justify-self: center;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1em;
+	grid-row: 2/2;
+	width: calc(60vmin+2em);
+	height: calc(60vmin+2em);
 	background-color: #fffafa;
 }
 
@@ -60,28 +62,28 @@ body{
 }*/
 
 
-.tile{
-	background-color:#c0c0c0;
-	background-repeat:no-repeat;
-	background-position:center center;
-	background-size:16vmin;
-	border-radius:.2em;
-	width:20vmin;
-	height:20vmin;
+.tile {
+	background-color: #c0c0c0;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 16vmin;
+	border-radius: .2em;
+	width: 20vmin;
+	height: 20vmin;
 }
 
-.tile--xclick{
-	background-image:url("cross.svg");
+.tile--xclick {
+	background-image: url("cross.svg");
 }
 
-.tile--oclick{
-	background-image:url("circle.svg");
+.tile--oclick {
+	background-image: url("circle.svg");
 }
 
-.tile--xcolor{
-	background-image:url("red_cross.svg");
+.tile--xcolor {
+	background-image: url("red_cross.svg");
 }
 
-.tile--ocolor{
-	background-image:url("red_circle.svg");
+.tile--ocolor {
+	background-image: url("red_circle.svg");
 }
