@@ -4,7 +4,7 @@ DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 const socket = io(`${DOMAIN}`);/*the port and http are used for purposes of local testing,
 										otherwise prod doesn't need them as traffic is proxied*/
 
-export function onClickNewGame(evt, mode) {
+export const onClickNewGame = (evt, mode) => {
 	evt.preventDefault();
 	console.log(mode);
 	socket.emit("synchronize_empty_board", `${mode}`);
