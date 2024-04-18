@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" href="main.css"></link>
-<link rel="icon" href="./favicon.ico" type="image/icon type">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!--later to be loaded from server-->
-<script src="./constants.js"></script>
-<script defer src="client_ui.js"></script>
-<title>tic tac toe</title>
+	<link rel="stylesheet" href="main.css">
+	</link>
+	<link rel="icon" href="./favicon.ico" type="image/icon type">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"
+		integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!--later to be loaded from server-->
+	<!-- <script src="./constant.js"></script> -->
+	<script type="module" defer>
+		import { g_int_form_board_coords } from "./common_methods.js";
+		import { onBoardClick } from "./client_ui.js"
+
+		g_int_form_board_coords.forEach(x => {
+			x = ('' + x).length == 1 ? '0' + x : '' + x;
+			document.querySelector(`#bd-${x}`).addEventListener("click", () => onBoardClick(x.charAt(0), x.charAt(1)));
+		});
+	</script>
+	<title>tic tac toe</title>
 </head>
+
 <body>
-<div id="results_text">You Win!</div>
-<div id="board" class="board">
-	<div class="tile" onclick="onBoardClick(0,0)"></div>
-	<div class="tile" onclick="onBoardClick(0,1)"></div>
-	<div class="tile" onclick="onBoardClick(0,2)"></div>
-	<div class="tile" onclick="onBoardClick(1,0)"></div>
-	<div class="tile" onclick="onBoardClick(1,1)"></div>
-	<div class="tile" onclick="onBoardClick(1,2)"></div>
-	<div class="tile" onclick="onBoardClick(2,0)"></div>
-	<div class="tile" onclick="onBoardClick(2,1)"></div>
-	<div class="tile" onclick="onBoardClick(2,2)"></div>
-</div>
+	<div id="results_text">You Win!</div>
+	<div id="board" class="board">
+		<div id="bd-00" class="tile"></div>
+		<div id="bd-01" class="tile"></div>
+		<div id="bd-02" class="tile"></div>
+		<div id="bd-10" class="tile"></div>
+		<div id="bd-11" class="tile"></div>
+		<div id="bd-12" class="tile"></div>
+		<div id="bd-20" class="tile"></div>
+		<div id="bd-21" class="tile"></div>
+		<div id="bd-22" class="tile"></div>
+	</div>
 </body>
+
 </html>

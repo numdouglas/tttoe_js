@@ -1,3 +1,5 @@
+import { coords_to_boardpos } from "./common_methods.js";
+import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT } from "./constants.js";
 var DOMAIN = window.location.hostname;
 //window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
@@ -6,24 +8,23 @@ const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of lo
 //										otherwise prod doesn't need them as traffic is proxied*/
 const g_div = document.getElementById("board").children;
 const g_animation_css_text = "game_over_text .2s linear forwards,game_over_text_two .5s linear 3s forwards";
-const g_int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 var g_role = "";
 
 g_socket.emit("join", "room0");
 
-g_socket.on(event_consts.CONNECT, (socket) => {
+g_socket.on(CONNECT, (socket) => {
 	console.log("connect");
 	g_socket.emit("player_mode", window.location.search.search("1p"));
 });
 
-g_socket.on(event_consts.ROLE_ASSIGNMENT, (msg) => {
+g_socket.on(ROLE_ASSIGNMENT, (msg) => {
 	console.log(`assigned player ${msg}`);
 	if (parseInt(msg) === 1) g_role = "x";
 	else g_role = "o";
 });
 
-g_socket.on(event_consts.UI_FEEDBACK, (message) => {
+g_socket.on(UI_FEEDBACK, (message) => {
 	const args_arr = message.split(",");
 	//div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
 	g_div[coords_to_boardpos(parseInt(args_arr[0]), parseInt(args_arr[1]))].classList.add(args_arr[2] === "x" ? "tile--xclick" : "tile--oclick");
@@ -31,12 +32,14 @@ g_socket.on(event_consts.UI_FEEDBACK, (message) => {
 	//console.log(`ui feedback ${message}`);
 });
 
-g_socket.on(event_consts.GAME_OVER, (message) => {
+g_socket.on(GAME_OVER, (message) => {
 	//console.log("GAME OVER");
 
 	console.log(message);
+	console.log(typeof message);
 
-	const msg_arr = message.split(",");
+	const msg_arr = typeof message === "string" ? message.split(",") : message;
+	console.log(typeof msg_arr);
 	message = msg_arr.pop();
 	const winner_symbol = msg_arr.pop();
 
@@ -48,6 +51,7 @@ g_socket.on(event_consts.GAME_OVER, (message) => {
 
 	//mark the winning plane
 	for (let x of msg_arr) {
+		//console.log(`modifying div at pos ${x} of div ${g_div[x]}`);
 		switch (winner_symbol) {
 			case "x":
 				g_div[x].classList.add("tile--xcolor");
@@ -62,16 +66,8 @@ g_socket.on(event_consts.GAME_OVER, (message) => {
 	//game_over = true;
 });
 
-function onBoardClick(x_coord, y_coord) {
+export function onBoardClick(x_coord, y_coord) {
 	g_socket.emit("player_click", `${x_coord},${y_coord},${g_role}`);
-}
-
-function coords_to_boardpos(coordx, coordy) {
-	for (let i = 0; i < g_int_form_board_coords.length; i++) {
-		if ((10 * coordx + coordy) === g_int_form_board_coords[i])
-			return i;
-	}
-	return -1;
 }
 
 function wait(milliseconds) {

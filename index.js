@@ -1,13 +1,21 @@
 "use strict"
 //server dependencies
-require("dotenv").config();
-const express = require("express");
-const http = require("http");
-const cors = require("cors");
-const fs = require("fs");
-const winston = require("winston");
+//require("dotenv").config();
+import express from "express";
+import http from "http";
+import cors from "cors";
+import fs from "fs";
+import winston from "winston";
+import { createServer } from "http";
+import {Server} from "socket.io";
+//const express = require("express");
+//const http = require("http");
+//const cors = require("cors");
+//const fs = require("fs");
+//const winston = require("winston");
 const { combine, timestamp, json } = winston.format;
-require("winston-daily-rotate-file");
+//require("winston-daily-rotate-file");
+import "winston-daily-rotate-file";
 //process.env.DEBUG="*";
 
 //dailyfilerotate function
@@ -35,7 +43,7 @@ const logger = winston.createLogger({
 const GAME_ROOM_NOM = "room0";
 const app = express();
 
-const server = http.createServer(app);
+const server = createServer(app);
 /*app.use(cors({
     "origin":"*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
@@ -72,7 +80,7 @@ var fileServer = new n_static.Server("./");*/
 });*/
 const SERVER_DOMAIN = process.env.DOMAIN || "localhost";
 
-const io = require("socket.io")(server, {
+const io = new Server(server, {
     cors: {
         /*wss connection will still arrive here as http connection*/
         "origin": [`http://${SERVER_DOMAIN}`, "https://tttoe.uk", "https://www.tttoe.uk"]
@@ -131,7 +139,7 @@ var player_number = 1;
 var last_player = "";
 
 
-function onBoardClick(pos_x, pos_y, symbol) {
+export function onBoardClick(pos_x, pos_y, symbol) {
     logger.debug(`symbol ${symbol} clicked`);
     if (game_over || board_state[pos_x][pos_y] !== "-" || last_player === symbol) return;
 
@@ -160,7 +168,6 @@ function checkGameOver() {
     if (x_win.length > 0) {
         logger.debug("Player one wins!");
         game_over = true;
-        x_win.push("x");
         x_win.push(player_mode === "1p" ? "You Win!" : "Player 1 Wins!");
         io.to(GAME_ROOM_NOM).emit("finish_game", `${x_win}`);
         finish_game();
@@ -170,15 +177,14 @@ function checkGameOver() {
         if (o_win.length > 0) {
             logger.debug("Player two Wins!");
             game_over = true;
-            o_win.push("o");
-            o_win.push(player_mode === "1p" ? "Rival Wins!" : "Player 2 Wins!");
+            o_win.push(player_mode === "1p" ? "You Lose!" : "Player 2 Wins!");
             io.to(GAME_ROOM_NOM).emit("finish_game", `${o_win}`);
             finish_game();
         }
         else if (isTie()) {
             logger.debug("Tie!");
             game_over = true;
-            io.to(GAME_ROOM_NOM).emit("finish_game", "Tie!");
+            io.to(GAME_ROOM_NOM).emit("finish_game", ["Tie!"]);
             finish_game();
         }
     }
