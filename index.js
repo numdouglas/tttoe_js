@@ -2,8 +2,6 @@
 //server dependencies
 //require("dotenv").config();
 import express from "express";
-import http from "http";
-import cors from "cors";
 import fs from "fs";
 import winston from "winston";
 import { createServer } from "http";
@@ -26,7 +24,6 @@ const file_rotate_transport = new winston.transports.DailyRotateFile({
     maxFiles: "14d",
     maxSize: "50m"
 });
-const g_int_form_board_coords = [0, 1, 2, 10, 11, 12, 20, 21, 22];
 
 const logger = winston.createLogger({
     level: "debug",
