@@ -79,7 +79,7 @@ var fileServer = new n_static.Server("./");*/
         fileServer.serve(request, response);
     }).resume();
 });*/
-const SERVER_DOMAIN = process.env.DOMAIN || "localhost";
+const SERVER_DOMAIN = process.env.DOMAIN || "0.0.0.0";
 
 const io = new Server(server, {
     cors: {
