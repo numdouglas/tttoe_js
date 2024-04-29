@@ -19,6 +19,7 @@ body {
 }
 
 #title_text {
+	cursor: default;
 	font-size: 10vw;
 	animation: levitate 6s ease-in-out infinite;
 }
@@ -30,6 +31,7 @@ body {
 #mode_selection_text {
 	margin-top: 2vh;
 	font-size: 5vw;
+	cursor: default;
 }
 
 #container li {
