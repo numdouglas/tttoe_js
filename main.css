@@ -9,6 +9,11 @@ body {
 	grid-template-rows: 10fr 80fr 10fr;
 }
 
+#title_text,
+#mode_selection_text {
+	cursor: default;
+}
+
 #results_text {
 	grid-row: 1/1;
 	font-size: 2em;
