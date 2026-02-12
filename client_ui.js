@@ -1,5 +1,5 @@
 import { coords_to_boardpos } from "./common_methods.js";
-import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT, ANIMATION_CSS_TEXT } from "./constants.js";
+import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT, ANIMATION_CSS_TEXT, PLAYER_CLICK, PLAYER_MODE } from "./constants.js";
 var DOMAIN = window.location.hostname;
 //window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
@@ -10,11 +10,9 @@ const g_div = document.getElementById("board").children;
 
 var g_role = "";
 
-g_socket.emit("join", "room0");
-
 g_socket.on(CONNECT, (socket) => {
 	console.log("connect");
-	g_socket.emit("player_mode", window.location.search.search("1p"));
+	g_socket.emit(PLAYER_MODE, window.location.search.search("1p"));
 });
 
 g_socket.on(ROLE_ASSIGNMENT, (msg) => {
@@ -25,17 +23,10 @@ g_socket.on(ROLE_ASSIGNMENT, (msg) => {
 
 g_socket.on(UI_FEEDBACK, (message) => {
 	const args_arr = message.split(",");
-	//div[coords_to_boardpos(parseInt(args_arr[0]),parseInt(args_arr[1]))].style.backgroundColor = args_arr[2];
 	g_div[coords_to_boardpos(parseInt(args_arr[0]), parseInt(args_arr[1]))].classList.add(args_arr[2] === "x" ? "tile--xclick" : "tile--oclick");
-	//last_turn=last_turn==="o"?"x":"o";
-	//console.log(`ui feedback ${message}`);
 });
 
 g_socket.on(GAME_OVER, (message) => {
-	//console.log("GAME OVER");
-
-	//console.log(message);
-	//console.log(typeof message);
 
 	const msg_arr = typeof message === "string" ? message.split(",") : message;
 	// console.log(typeof msg_arr);
@@ -66,7 +57,7 @@ g_socket.on(GAME_OVER, (message) => {
 });
 
 export function onBoardClick(x_coord, y_coord) {
-	g_socket.emit("player_click", `${x_coord},${y_coord},${g_role}`);
+	g_socket.emit(PLAYER_CLICK, `${x_coord},${y_coord},${g_role}`);
 }
 
 function wait(milliseconds) {

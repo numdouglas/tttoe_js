@@ -7,7 +7,7 @@ const socket = io(`${DOMAIN}`);/*the port and http are used for purposes of loca
 export const onClickNewGame = (evt, mode) => {
 	evt.preventDefault();
 	console.log(mode);
-	socket.emit("synchronize_empty_board", `${mode}`);
+	// socket.emit("synchronize_empty_board", `${mode}`);
 	window.location.assign(`./game?mode=${mode}`)
 
 }
