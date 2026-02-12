@@ -79,6 +79,8 @@ io.on("connection", (socket) => {
 
         game = assign_to_room(msg);
         socket.join(game.room_name);
+        game.total_participants++;
+        
         if (msg === -1) game.player_mode = "2p"
         else { game.player_mode = "1p"; game.create_distribution(); }
 
