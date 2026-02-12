@@ -1,5 +1,5 @@
 import { coords_to_boardpos } from "./common_methods.js";
-import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, CONNECT, ANIMATION_CSS_TEXT, PLAYER_CLICK, PLAYER_MODE } from "./constants.js";
+import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, ANIMATION_CSS_TEXT, PLAYER_CLICK, PLAYER_MODE, CLIENT_CONNECT_EVENT } from "./constants.js";
 var DOMAIN = window.location.hostname;
 //window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
@@ -10,7 +10,7 @@ const g_div = document.getElementById("board").children;
 
 var g_role = "";
 
-g_socket.on(CONNECT, (socket) => {
+g_socket.on(CLIENT_CONNECT_EVENT, (socket) => {
 	console.log("connect");
 	g_socket.emit(PLAYER_MODE, window.location.search.search("1p"));
 });

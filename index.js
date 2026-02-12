@@ -8,7 +8,7 @@ import { Server } from "socket.io";
 import { Game } from "./Game.js";
 const { combine, timestamp, json } = winston.format;
 import "winston-daily-rotate-file";
-import { ROLE_ASSIGNMENT, PLAYER_CLICK, PLAYER_MODE } from "./constants.js";
+import { ROLE_ASSIGNMENT, PLAYER_CLICK, PLAYER_MODE, SERVER_CONNECT_EVENT } from "./constants.js";
 
 //dailyfilerotate function
 const file_rotate_transport = new winston.transports.DailyRotateFile({
@@ -69,7 +69,7 @@ export const io = new Server(server, {
 var g_lobby = [];
 const collator = new Intl.Collator(undefined, { numeric: true });
 
-io.on("connection", (socket) => {
+io.on(SERVER_CONNECT_EVENT, (socket) => {
     logger.debug("user connected");
 
     var game = undefined;
@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
         game = assign_to_room(msg);
         socket.join(game.room_name);
         game.total_participants++;
-        
+
         if (msg === -1) game.player_mode = "2p"
         else { game.player_mode = "1p"; game.create_distribution(); }
 
