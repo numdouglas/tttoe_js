@@ -29,6 +29,11 @@
             "date": 1771274810193,
             "name": "logs\\tttoe_debug_2026-02-16.log",
             "hash": "ef4dfcc85849b7dc4bc7ffced5d8acb147a624b8b1aa47752e4ee6ba3056d6fd"
+        },
+        {
+            "date": 1771276817629,
+            "name": "logs\\tttoe_debug_2026-02-17.log",
+            "hash": "39572260c417b0027bf24efed75b5dd06c08ef4567fa56958cf4e35464a17adc"
         }
     ],
     "hashType": "sha256"

@@ -6,6 +6,7 @@ import winston from "winston";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { Game } from "./Game.js";
+import { AtomicInteger } from "./AtomicInteger.js";
 const { combine, timestamp, json } = winston.format;
 import "winston-daily-rotate-file";
 import { ROLE_ASSIGNMENT, PLAYER_CLICK, PLAYER_MODE, SERVER_CONNECT_EVENT } from "./constants.js";
