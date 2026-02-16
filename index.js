@@ -79,7 +79,7 @@ io.on(SERVER_CONNECT_EVENT, (socket) => {
 
         game = assign_to_room(msg);
         socket.join(game.room_name);
-        game.total_participants++;
+        game.total_participants.incrementAndGet();
 
         if (msg === -1) game.player_mode = "2p"
         else { game.player_mode = "1p"; game.create_distribution(); }
@@ -116,10 +116,10 @@ function assign_to_room(mode) {
 
     for (; i < g_lobby.length; i++) {
 
-        const count = io.sockets.adapter.rooms.get(g_lobby[i].r_name)?.size || 0;
+        const count = new AtomicInteger(io.sockets.adapter.rooms.get(g_lobby[i].r_name)?.size || 0);
         const game = g_lobby[i].g_instance;
 
-        if ((count == 0) || (count == 1 && game.player_mode == "2p")) {
+        if ((count.get() === 0) || (count.get() === 1 && game.player_mode === "2p")) {
             logger.debug(`user joined ${g_lobby[i].r_name}`);
             return game;
         }

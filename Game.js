@@ -1,5 +1,6 @@
 import { coords_to_boardpos } from "./common_methods.js";
 import { UI_FEEDBACK, GAME_OVER } from "./constants.js";
+import { AtomicInteger } from "./AtomicInteger.js";
 
 export class Game {
     constructor(room_name, ai_difficulty_prob, logger) {
@@ -13,14 +14,14 @@ export class Game {
         this.player_mode = undefined;
         this.player_number = 1;
         this.last_player = "";
-        this.total_participants = 0;
+        this.total_participants = new AtomicInteger(0);
     }
 
     onBoardClick(pos_x, pos_y, symbol, io) {
         this.logger.debug(`symbol ${symbol} clicked`);
 
         if (this.game_over || this.board_state[pos_x][pos_y] !== "-" ||
-            this.last_player === symbol || (this.player_mode === "2p" && this.total_participants !== 2))
+            this.last_player === symbol || (this.player_mode === "2p" && this.total_participants.get() !== 2))
             return;
 
         this.last_player = symbol;
