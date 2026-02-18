@@ -12,7 +12,8 @@ var g_role = "";
 
 g_socket.on(CLIENT_CONNECT_EVENT, (socket) => {
 	console.log("connect");
-	g_socket.emit(PLAYER_MODE, window.location.search.search("1p"));
+	const mode = sessionStorage.getItem("player_mode");
+	g_socket.emit(PLAYER_MODE, mode);
 });
 
 g_socket.on(ROLE_ASSIGNMENT, (msg) => {

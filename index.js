@@ -75,14 +75,13 @@ io.on(SERVER_CONNECT_EVENT, (socket) => {
 
     var game = undefined;
 
-    socket.on(PLAYER_MODE, (msg) => {
-        logger.debug(`initializing ${msg === -1}`);
+    socket.on(PLAYER_MODE, (mode) => {
 
-        game = assign_to_room(msg);
+        game = assign_to_room();
         socket.join(game.room_name);
         game.total_participants.incrementAndGet();
 
-        if (msg === -1) game.player_mode = "2p"
+        if (mode === "2p") game.player_mode = "2p"
         else { game.player_mode = "1p"; game.create_distribution(); }
 
         //assign p1 and p2
@@ -104,7 +103,7 @@ io.on(SERVER_CONNECT_EVENT, (socket) => {
 server.listen(8080, () => logger.debug("listening on port 8080"));
 
 
-function assign_to_room(mode) {
+function assign_to_room() {
 
     let i = 0;
     let room_name = `room${i}`;
