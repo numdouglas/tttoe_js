@@ -9,7 +9,7 @@ import { Game } from "./Game.js";
 import { AtomicInteger } from "./AtomicInteger.js";
 const { combine, timestamp, json } = winston.format;
 import "winston-daily-rotate-file";
-import { ROLE_ASSIGNMENT, PLAYER_CLICK, PLAYER_MODE, SERVER_CONNECT_EVENT } from "./constants.js";
+import { ROLE_ASSIGNMENT, PLAYER_CLICK, PLAYER_MODE, SERVER_CONNECT_EVENT, SERVER_DISCONNECT_EVENT, FORCED_DISCONNECT_EVENT } from "./constants.js";
 
 //dailyfilerotate function
 const file_rotate_transport = new winston.transports.DailyRotateFile({
@@ -67,18 +67,19 @@ export const io = new Server(server, {
     }
 });
 
-var g_lobby = [];
+let g_lobby = [];
 const collator = new Intl.Collator(undefined, { numeric: true });
 
 io.on(SERVER_CONNECT_EVENT, (socket) => {
     logger.debug("user connected");
 
-    var game = undefined;
+    let game = undefined;
 
     socket.on(PLAYER_MODE, (mode) => {
 
         game = assign_to_room();
         socket.join(game.room_name);
+        game.session_ids.push(socket.id);
         game.total_participants.incrementAndGet();
 
         if (mode === "2p") game.player_mode = "2p"
@@ -94,10 +95,18 @@ io.on(SERVER_CONNECT_EVENT, (socket) => {
 
 
     socket.on(PLAYER_CLICK, (message) => {
-        var args_arr = message.split(",");
+        const args_arr = message.split(",");
         game.onBoardClick(args_arr[0], args_arr[1], args_arr[2], io);
     });
 
+    socket.on(SERVER_DISCONNECT_EVENT, () => {
+        const disconnected_game = g_lobby.find((x) => x && x.g_instance.session_ids.includes(socket.id))?.g_instance;
+
+        if (disconnected_game) {
+            io.to(disconnected_game.room_name).emit(FORCED_DISCONNECT_EVENT);
+            disconnected_game.finish_game();
+        }
+    });
 });
 
 server.listen(8080, () => logger.debug("listening on port 8080"));

@@ -15,6 +15,7 @@ export class Game {
         this.player_number = 1;
         this.last_player = "";
         this.total_participants = new AtomicInteger(0);
+        this.session_ids = [];
     }
 
     onBoardClick(pos_x, pos_y, symbol, io) {
@@ -35,7 +36,7 @@ export class Game {
 
     ai_play(io) {
         this.shuffleArray(this.dist_arr);
-        var rand_or_maxxed = this.dist_arr[0];
+        const rand_or_maxxed = this.dist_arr[0];
         this.move = rand_or_maxxed === 0 ? this.minimax() : this.make_random_move();
         this.logger.debug(this.move);
         this.board_state[this.move.x][this.move.y] = "o";
@@ -96,15 +97,15 @@ export class Game {
     }
 
     minimax() {
-        var score = Number.MAX_VALUE;
-        var move = { x: 0, y: 0 };
+        let score = Number.MAX_VALUE;
+        const move = { x: 0, y: 0 };
 
         for (let i = 0; i < 3; i++) {
 
             for (let j = 0; j < 3; j++) {
                 if (this.board_state[i][j] === "-") {
                     this.board_state[i][j] = "o";
-                    var temp = this.max();
+                    const temp = this.max();
                     //console.log(temp);
                     if (temp < score) {
                         score = temp;
@@ -124,7 +125,7 @@ export class Game {
         else if (this.isTie()) return 0;
 
 
-        var score = Number.MIN_VALUE;
+        let score = Number.MIN_VALUE;
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
@@ -144,13 +145,13 @@ export class Game {
         else if (this.isTie()) return 0;
 
 
-        var score = Number.MAX_VALUE;
+        let score = Number.MAX_VALUE;
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (this.board_state[i][j] === "-") {
                     this.board_state[i][j] = "o";
-                    var max_result = this.max();
+                    const max_result = this.max();
                     score = Math.min(score, max_result);
                     //console.log(max_result,score);
                     this.board_state[i][j] = "-";
@@ -169,7 +170,7 @@ export class Game {
     }
 
     printBoard() {
-        var row_str = "";
+        let row_str = "";
         this.logger.debug("+-----------------+");
         for (let i = 0; i < 3; i++) {
             row_str += "\n|";
@@ -184,7 +185,7 @@ export class Game {
 
 
     make_random_move() {
-        var move = { x: 0, y: 0 };
+        const move = { x: 0, y: 0 };
 
         move.x = Math.floor(Math.random() * 3);
         move.y = Math.floor(Math.random() * 3);
@@ -205,7 +206,7 @@ export class Game {
     }
 
     clear_board() {
-        for (var i = 0; i < this.board_state.length; i++) {
+        for (let i = 0; i < this.board_state.length; i++) {
             this.board_state[i].fill("-");
         }
     }

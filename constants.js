@@ -1,4 +1,6 @@
 export const SERVER_CONNECT_EVENT = "connection";
+export const SERVER_DISCONNECT_EVENT = "disconnect";
+export const FORCED_DISCONNECT_EVENT = "force_disconnect";
 export const CLIENT_CONNECT_EVENT = "connect";
 export const UI_FEEDBACK = "player_ui_feedback";
 export const GAME_OVER = "finish_game";

@@ -6,39 +6,14 @@
     "auditLog": "logs\\.a229314328c4a40a02b4cf79f1b226f02a2e5598-audit.json",
     "files": [
         {
-            "date": 1770806048337,
-            "name": "logs\\tttoe_debug_2026-02-11.log",
-            "hash": "1d1f999822887c662cb388732a9d5d73f33d9019b4a4ffd02e9070398cc73425"
+            "date": 1772661513301,
+            "name": "logs\\tttoe_debug_2026-03-05.log",
+            "hash": "0f745ebd6ad725dd9f0c6ebad9fc65acafed070243cc273bef940d9ba1362bd6"
         },
         {
-            "date": 1770844789415,
-            "name": "logs\\tttoe_debug_2026-02-12.log",
-            "hash": "4fd4bc5976bec10aa798f897d08d80bd208c3e47bb380518dffade03020b0757"
-        },
-        {
-            "date": 1771066602175,
-            "name": "logs\\tttoe_debug_2026-02-14.log",
-            "hash": "dace49fafc5361efd356550a5c24e738c478f03f64178674a423d4df50c37c31"
-        },
-        {
-            "date": 1771170475916,
-            "name": "logs\\tttoe_debug_2026-02-15.log",
-            "hash": "bbe06ba39a4d8f2aafbd34c3955dac7db0f48a4da1f9c4c302820ace58ce9ca3"
-        },
-        {
-            "date": 1771274810193,
-            "name": "logs\\tttoe_debug_2026-02-16.log",
-            "hash": "ef4dfcc85849b7dc4bc7ffced5d8acb147a624b8b1aa47752e4ee6ba3056d6fd"
-        },
-        {
-            "date": 1771276817629,
-            "name": "logs\\tttoe_debug_2026-02-17.log",
-            "hash": "39572260c417b0027bf24efed75b5dd06c08ef4567fa56958cf4e35464a17adc"
-        },
-        {
-            "date": 1771414015562,
-            "name": "logs\\tttoe_debug_2026-02-18.log",
-            "hash": "6112feccf35b1ce6ee23435d7e791395f0bc0defb76543d7b71cd41899fb1906"
+            "date": 1772752450789,
+            "name": "logs\\tttoe_debug_2026-03-06.log",
+            "hash": "6379b1554a13bef3e5256e79ee1d38469880cf54abd48f340b568541520e76f7"
         }
     ],
     "hashType": "sha256"

@@ -1,4 +1,4 @@
-var DOMAIN = window.location.hostname;
+let DOMAIN = window.location.hostname;
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 
 export const onClickNewGame = (evt, mode) => {

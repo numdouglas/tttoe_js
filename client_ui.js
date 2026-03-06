@@ -1,6 +1,6 @@
 import { coords_to_boardpos } from "./common_methods.js";
-import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, ANIMATION_CSS_TEXT, PLAYER_CLICK, PLAYER_MODE, CLIENT_CONNECT_EVENT } from "./constants.js";
-var DOMAIN = window.location.hostname;
+import { ROLE_ASSIGNMENT, UI_FEEDBACK, GAME_OVER, ANIMATION_CSS_TEXT, PLAYER_CLICK, PLAYER_MODE, CLIENT_CONNECT_EVENT, FORCED_DISCONNECT_EVENT } from "./constants.js";
+let DOMAIN = window.location.hostname;
 //window.localStorage.debug = "*";
 DOMAIN = DOMAIN !== "localhost" ? DOMAIN : `${DOMAIN}:8080`
 //client dependencies
@@ -8,7 +8,7 @@ const g_socket = io(`${DOMAIN}`);/*the port and http are used for purposes of lo
 //										otherwise prod doesn't need them as traffic is proxied*/
 const g_div = document.getElementById("board").children;
 
-var g_role = "";
+let g_role = "";
 
 g_socket.on(CLIENT_CONNECT_EVENT, (socket) => {
 	console.log("connect");
@@ -55,6 +55,11 @@ g_socket.on(GAME_OVER, (message) => {
 
 	wait(4000).then(() => { window.location.replace("/home"); });
 	//game_over = true;
+});
+
+g_socket.on(FORCED_DISCONNECT_EVENT, () => {
+	console.log("disconnect");
+	wait(2000).then(() => { window.location.replace("/home"); });
 });
 
 export function onBoardClick(x_coord, y_coord) {
